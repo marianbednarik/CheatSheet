@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:foreground="?attr/selectableItemBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <TextView android:text="@string/undefined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dayRange"
+            android:textSize="14sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView android:text="@string/undefined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/classmateA"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <TextView android:text="Classmate A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/classmateA"
+            android:id="@+id/classmateAinfo"
+            android:textSize="16sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"/>
+
+        <include
+            layout="@layout/devider"
+            android:id="@+id/devider_0"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_below="@id/classmateAinfo"/>
+
+        <TextView android:text="@string/undefined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/classmateAinfo"
+            android:layout_marginTop="8dp"
+            android:id="@+id/classmateB"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <TextView android:text="Classmate B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/classmateB"
+            android:id="@+id/text_tyzdennik_B"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView-->
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cardView"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="2dp"
+    card_view:contentPaddingTop="8dp"
+    card_view:contentPaddingLeft="16dp"
+    card_view:contentPaddingRight="16dp"
+    card_view:contentPaddingBottom="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dayRange"
+            android:textSize="14sp"
+            android:text="@string/undefined_number"
+            android:layout_alignParentEnd="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:id="@+id/currentClassmateWeekNum"
+            android:text="@string/undefined"
+            android:layout_alignParentStart="true"/>
+        <include
+            layout="@layout/devider"
+            android:id="@+id/devider_0"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@id/dayRange"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignTop="@id/devider_0"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/classmateAinfo"
+            android:id="@+id/lessonColor_0"
+            android:src="@drawable/circle"
+            android:scaleType="fitCenter"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_alignTop="@id/lessonColor_0"
+            android:layout_alignBottom="@id/lessonColor_0"
+            android:layout_alignStart="@id/lessonColor_0"
+            android:layout_alignEnd="@id/lessonColor_0"
+            android:id="@+id/classmateID_A"
+            android:textSize="21sp"
+            android:textColor="@color/md_grey_50"
+            android:gravity="center"
+            android:text="@string/undefined_number"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/devider_0"
+            android:id="@+id/classmateA"
+            android:text="@string/undefined"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingStart="16dp"
+            android:layout_toEndOf="@id/lessonColor_0"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/classmateAinfo"
+            android:text="Group A"
+            android:textSize="16sp"
+            android:paddingStart="16dp"
+            android:layout_toEndOf="@id/lessonColor_0"
+            android:layout_marginTop="4dp"
+            android:layout_below="@id/classmateA"/>
+
+        <include
+            layout="@layout/devider"
+            android:id="@+id/devider_1"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/classmateAinfo"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignTop="@id/devider_1"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/classmateBinfo"
+            android:id="@+id/lessonColor_1"
+            android:src="@drawable/circle"
+            android:scaleType="fitCenter"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_alignTop="@id/lessonColor_1"
+            android:layout_alignBottom="@id/lessonColor_1"
+            android:layout_alignStart="@id/lessonColor_1"
+            android:layout_alignEnd="@id/lessonColor_1"
+            android:id="@+id/classmateID_B"
+            android:textSize="21sp"
+            android:textColor="@color/md_grey_50"
+            android:gravity="center"
+            android:text="@string/undefined_number"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/devider_1"
+            android:layout_marginTop="8dp"
+            android:id="@+id/classmateB"
+            android:text="@string/undefined"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingStart="16dp"
+            android:layout_toEndOf="@id/lessonColor_0"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/classmateBinfo"
+            android:text="Group B"
+            android:textSize="16sp"
+            android:paddingStart="16dp"
+            android:layout_toEndOf="@id/lessonColor_0"
+            android:layout_marginTop="4dp"
+            android:layout_below="@id/classmateB"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

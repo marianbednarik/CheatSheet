@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:icon="@drawable/ic_home_black_24dp"
+            android:id="@+id/nav_overview"
+            android:title="Overview"
+            android:checked="true"/>
+        <item
+            android:title="Messages"
+            android:icon="@drawable/ic_question_answer_black_24dp"/>
+        <item
+            android:title="Assignments"
+            android:icon="@drawable/ic_assignment_black_24dp"/>
+        <item
+            android:title="Homework"
+            android:icon="@drawable/ic_alarm_black_24dp"/>
+        <item
+            android:title="Notes"
+            android:icon="@drawable/ic_class_black_24dp"/>
+        <item
+            android:title="Classmates"
+            android:id="@+id/nav_classmates"
+            android:icon="@drawable/ic_group_black_24dp"/>
+    </group>
+
+    <item android:title="Classes">
+        <menu>
+            <item
+                android:title="Add class"
+                android:icon="@drawable/ic_add_black_24dp"/>
+        </menu>
+    </item>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:title="Account"
+                android:icon="@drawable/ic_person_black_24dp"/>
+            <item
+                android:title="Settings"
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings_black_24dp"/>
+            <item
+                android:title="Log out"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"/>
+        </menu>
+    </item>
+
+</menu>

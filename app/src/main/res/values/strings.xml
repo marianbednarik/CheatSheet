@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CheatSheet 2</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="main_activity_name">Overview</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="text_lesson_current">Current</string>
+    <string name="text_lesson_up_next">Up next</string>
+    <string name="undefined">undefined</string>
+    <string name="undefined_number">X</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
