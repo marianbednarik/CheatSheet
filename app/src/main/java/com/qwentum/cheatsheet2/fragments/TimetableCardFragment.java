@@ -1,4 +1,4 @@
-package com.qwentum.cheatsheet2;
+package com.qwentum.cheatsheet2.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.qwentum.cheatsheet2.MainActivity;
+import com.qwentum.cheatsheet2.R;
+import com.qwentum.cheatsheet2.objects.Timetable;
+import com.qwentum.cheatsheet2.models.TimetableCardModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;

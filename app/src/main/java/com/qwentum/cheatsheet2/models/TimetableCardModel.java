@@ -1,15 +1,11 @@
-package com.qwentum.cheatsheet2;
+package com.qwentum.cheatsheet2.models;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.qwentum.cheatsheet2.MainActivity;
 import com.qwentum.cheatsheet2.R;
-import com.qwentum.cheatsheet2.Timetable;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import com.qwentum.cheatsheet2.objects.Timetable;
 
 /**
  * Created by Marian on 2016-03-15.

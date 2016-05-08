@@ -1,8 +1,10 @@
-package com.qwentum.cheatsheet2;
+package com.qwentum.cheatsheet2.objects;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.qwentum.cheatsheet2.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -93,13 +95,13 @@ public class Timetable {
     17.                             S4 - 1C1032
     */
 
-    private weekDay monday = new weekDay(false, new int[]{2, 2, 2, 3, 0, 0, 0, 0}, new int[][]{{16, 16, 16, 5, 1, 7, 12, 0}, {15, 15, 15, 14, 1, 7, 12, -1}, {8, 8, 8}}, new int[][]{{6, 6, 6, 13, 0, 14, 2, 0}, {4, 4, 4, 17, 0, 14, 2, 0}, {15, 15, 15}});
-    private weekDay tuesday = new weekDay(false, new int[]{0, 0, 0, 0, 0, 0, 1, 0}, new int[][]{{7, 4, 13, 13, 1, 12, 3, 3}, {7, 4, 13, 13, 1, 12, 0, -1}}, new int[][]{{0, 0, 11, 11, 0, 0, 6, 6}, {0, 0, 11, 11, 0, 0, 16}});
-    private weekDay wednesday = new weekDay(true, new int[]{0, 3, 2, 2, 2, 2, 2, 2}, new int[][]{{0, 5, 1, 1, 10, 10, 2, 2}, {-1, 14, 2, 2, 1, 1, 10, 10}, {0, 0, 10, 10, 2, 2, 1, 1}}, new int[][]{{0, 0, 4, 4, 12, 12, 7, 7}, {0, 17, 7, 7, 4, 4, 12, 12}, {0, 0, 12, 12, 7, 7, 4, 4}});
-    private weekDay thursday = new weekDay(true, new int[]{0, 1, 0, 1, 1, 1, 1, 0}, new int[][]{{-1, 0, 4, 9, 9, 11, 11, -1}, {3, 3, 4, 11, 11, 9, 9, 0}}, new int[][]{{-1, 0, 0, 8, 8, 9, 9, -1}, {6, 6, 0, 9, 9, 8, 8, 0}});
-    private weekDay friday = new weekDay(false, new int[]{0, 0, 0, 0, 0, 0}, new int[][]{{2, 6, 7, 12, 10, -1}, {2, 6, 7, 12, 10, 0}}, new int[][]{{3, 1, 10, 5, 0, -1}, {3, 1, 10, 5, 0, 0}});
+    private WeekDay monday = new WeekDay(false, new int[]{2, 2, 2, 3, 0, 0, 0, 0}, new int[][]{{16, 16, 16, 5, 1, 7, 12, 0}, {15, 15, 15, 14, 1, 7, 12, -1}, {8, 8, 8}}, new int[][]{{6, 6, 6, 13, 0, 14, 2, 0}, {4, 4, 4, 17, 0, 14, 2, 0}, {15, 15, 15}});
+    private WeekDay tuesday = new WeekDay(false, new int[]{0, 0, 0, 0, 0, 0, 1, 0}, new int[][]{{7, 4, 13, 13, 1, 12, 3, 3}, {7, 4, 13, 13, 1, 12, 0, -1}}, new int[][]{{0, 0, 11, 11, 0, 0, 6, 6}, {0, 0, 11, 11, 0, 0, 16}});
+    private WeekDay wednesday = new WeekDay(true, new int[]{0, 3, 2, 2, 2, 2, 2, 2}, new int[][]{{0, 5, 1, 1, 10, 10, 2, 2}, {-1, 14, 2, 2, 1, 1, 10, 10}, {0, 0, 10, 10, 2, 2, 1, 1}}, new int[][]{{0, 0, 4, 4, 12, 12, 7, 7}, {0, 17, 7, 7, 4, 4, 12, 12}, {0, 0, 12, 12, 7, 7, 4, 4}});
+    private WeekDay thursday = new WeekDay(true, new int[]{0, 1, 0, 1, 1, 1, 1, 0}, new int[][]{{-1, 0, 4, 9, 9, 11, 11, -1}, {3, 3, 4, 11, 11, 9, 9, 0}}, new int[][]{{-1, 0, 0, 8, 8, 9, 9, -1}, {6, 6, 0, 9, 9, 8, 8, 0}});
+    private WeekDay friday = new WeekDay(false, new int[]{0, 0, 0, 0, 0, 0}, new int[][]{{2, 6, 7, 12, 10, -1}, {2, 6, 7, 12, 10, 0}}, new int[][]{{3, 1, 10, 5, 0, -1}, {3, 1, 10, 5, 0, 0}});
 
-    public weekDay getTimetable(int day) {
+    public WeekDay getTimetable(int day) {
         switch (day) {
             case Calendar.MONDAY:
                 return monday;
@@ -216,19 +218,5 @@ public class Timetable {
 
     public boolean isWeekend() {
         return (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY);
-    }
-}
-
-class weekDay {
-    public boolean _startsWithZero;
-    public int[] _classType;
-    public int[][] _classNames;
-    public int[][] _classInfo;
-
-    public weekDay(boolean startsWithZero, int[] classType, int[][] classNames, int[][] classInfo) {
-        _startsWithZero = startsWithZero;
-        _classType = classType;
-        _classNames = classNames;
-        _classInfo = classInfo;
     }
 }

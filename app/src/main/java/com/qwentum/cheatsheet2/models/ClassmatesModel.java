@@ -1,4 +1,6 @@
-package com.qwentum.cheatsheet2;
+package com.qwentum.cheatsheet2.models;
+
+import com.qwentum.cheatsheet2.objects.Timetable;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
