@@ -33,7 +33,6 @@ public class TimetablePageFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("Wednesday"));
         tabLayout.addTab(tabLayout.newTab().setText("Thursday"));
         tabLayout.addTab(tabLayout.newTab().setText("Friday"));
-        //tabLayout.getSelectedTabPosition();
         final ViewPager viewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
         viewPager.setAdapter(new TimetablePagerAdapter(getChildFragmentManager()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
