@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
     TextView textTimer;
     Toolbar toolbar;
     Timetable timetable = new Timetable();
-    Calendar cal = Calendar.getInstance();
+    Calendar cal;
     FragmentTransaction fragmentTransaction;
     SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
     //http://stackoverflow.com/questions/30171692/recyclerviews-in-viewpager
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity
         if (timetable.getCurrentSubjectID(false) < 18) {
             try {
                 //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
+                cal = Calendar.getInstance();
                 startTimer(tf.parse(timetable.times[timetable.getCurrentSubjectID(false) + 1]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
             } catch (ParseException pe) {
 
@@ -124,12 +125,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onLowMemory(){
-        super.onLowMemory();
-        Log.d("Main","Device is low in memory! App may get released from memory.");
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -157,7 +152,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void startTimer (final long timeInMillis){
-        Log.e("CS","Starting timer! - " + timeInMillis);
         new CountDownTimer(timeInMillis, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -177,6 +171,7 @@ public class MainActivity extends AppCompatActivity
                 if (timetable.getCurrentSubjectID(false) < 18) {
                     try {
                         //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
+                        cal = Calendar.getInstance();
                         startTimer(tf.parse(timetable.times[timetable.getCurrentSubjectID(false) + 1]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
                     } catch (ParseException pe) {
 
