@@ -44,8 +44,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         //Normal Content view
         setContentView(R.layout.activity_main);
-
-        if (timetablePageFragment == null) {
+        if (savedInstanceState == null) {
             timetablePageFragment = new TimetablePageFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.fragment_container, timetablePageFragment).commit();
@@ -56,8 +55,8 @@ public class MainActivity extends AppCompatActivity
 
         //Setting the title
         textTimer = new TextView(this);
-        context = getBaseContext();
         setTitle(R.string.main_activity_name);
+        context = getBaseContext();
 
         //TIMER
         if (timetable.getCurrentSubjectID(false) < 18) {
@@ -123,6 +122,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onLowMemory(){
+        super.onLowMemory();
+        Log.d("Main","Device is low in memory! App may get released from memory.");
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
