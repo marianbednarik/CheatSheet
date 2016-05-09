@@ -19,6 +19,7 @@ import com.qwentum.cheatsheet2.MainActivity;
 import com.qwentum.cheatsheet2.R;
 import com.qwentum.cheatsheet2.objects.Timetable;
 import com.qwentum.cheatsheet2.models.TimetableCardModel;
+import com.qwentum.cheatsheet2.objects.WeekDay;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,7 +37,7 @@ public class TimetableCardFragment extends Fragment {
     private Calendar cal;
     private Timetable timetable;
     private SharedPreferences SP;
-    private weekDay currentDay;
+    private WeekDay currentDay;
     public List<TimetableCardModel> models;
     public RecyclerView recyclerView;
     public static final String ARG_PAGE = "ARG_PAGE";

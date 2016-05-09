@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import com.qwentum.cheatsheet2.MainActivity;
 import com.qwentum.cheatsheet2.R;
 import com.qwentum.cheatsheet2.objects.Timetable;
+import com.qwentum.cheatsheet2.objects.WeekDay;
 
 /**
  * Created by Marian on 2016-03-15.
@@ -18,7 +19,7 @@ public class TimetableCardModel {
     public String[] mSubjectName, mSubjectInfo, mSubjectID, mGroup;
     public String mTimes, mSubjectNum;
 
-    public TimetableCardModel(int position, weekDay currentDay) {
+    public TimetableCardModel(int position, WeekDay currentDay) {
         //TODO id lesson is disabled skip everything
 
         SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(MainActivity.context);
