@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.qwentum.cheatsheet2.MainActivity;
-import com.qwentum.cheatsheet2.R;
 import com.qwentum.cheatsheet2.objects.Timetable;
 import com.qwentum.cheatsheet2.objects.WeekDay;
 

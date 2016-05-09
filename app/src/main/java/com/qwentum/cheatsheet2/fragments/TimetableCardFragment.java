@@ -19,8 +19,8 @@ import android.widget.TextView;
 import com.qwentum.cheatsheet2.Helper;
 import com.qwentum.cheatsheet2.MainActivity;
 import com.qwentum.cheatsheet2.R;
-import com.qwentum.cheatsheet2.objects.Timetable;
 import com.qwentum.cheatsheet2.models.TimetableCardModel;
+import com.qwentum.cheatsheet2.objects.Timetable;
 import com.qwentum.cheatsheet2.objects.WeekDay;
 
 import java.util.ArrayList;
