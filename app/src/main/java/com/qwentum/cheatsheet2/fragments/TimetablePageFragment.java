@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,9 @@ import java.util.Calendar;
 
 public class TimetablePageFragment extends Fragment {
 
-    TabLayout tabLayout;
+    public TabLayout tabLayout;
     private String TAG = "TTPageFragment";
+    public SparseArray<TimetableCardFragment> generatedFragments = new SparseArray<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +75,23 @@ public class TimetablePageFragment extends Fragment {
         public Fragment getItem(int position) {
             return TimetableCardFragment.newInstance(position);
         }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            TimetableCardFragment fragment = (TimetableCardFragment) super.instantiateItem(container, position);
+            generatedFragments.put(position, fragment);
+            return fragment;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+            generatedFragments.remove(position);
+        }
+
+        /*public Fragment getRegisteredFragment(int position) {
+            return generatedFragments.get(position);
+        }*/
     }
 }
 

@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.qwentum.cheatsheet2.fragments.ClassmatesFragment;
+import com.qwentum.cheatsheet2.fragments.TimetableCardFragment;
 import com.qwentum.cheatsheet2.fragments.TimetablePageFragment;
 import com.qwentum.cheatsheet2.objects.Timetable;
 
@@ -36,8 +37,6 @@ public class MainActivity extends AppCompatActivity
     Calendar cal;
     FragmentTransaction fragmentTransaction;
     SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
-    //http://stackoverflow.com/questions/30171692/recyclerviews-in-viewpager
-    //http://developer.android.com/training/implementing-navigation/lateral.html
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,13 +165,17 @@ public class MainActivity extends AppCompatActivity
 
             public void onFinish() {
                 //TODO lesson fading
-                //timetableFragment.models.get(timetable.getCurrentSubjectID(true)-1).mLessonDone = true;
-                //timetableFragment.recyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true)-1);
-                if (timetable.getCurrentSubjectID(false) < 18) {
+                int currentSubject = timetable.getCurrentSubjectID(false);
+                if (currentSubject % 2 != 0) {
+                    TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(timetablePageFragment.tabLayout.getSelectedTabPosition());
+                    currentPageFragment.models.get(timetable.getCurrentSubjectID(true) - 1).mLessonDone = true;
+                    currentPageFragment.recyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true) - 1);
+                }
+                if (currentSubject < 18) {
                     try {
                         //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
                         cal = Calendar.getInstance();
-                        startTimer(tf.parse(timetable.times[timetable.getCurrentSubjectID(false) + 1]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
+                        startTimer(tf.parse(timetable.times[currentSubject + 1]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
                     } catch (ParseException pe) {
 
                     }

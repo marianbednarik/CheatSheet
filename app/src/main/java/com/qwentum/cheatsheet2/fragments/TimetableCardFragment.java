@@ -1,6 +1,7 @@
 package com.qwentum.cheatsheet2.fragments;
 
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.qwentum.cheatsheet2.Helper;
 import com.qwentum.cheatsheet2.MainActivity;
 import com.qwentum.cheatsheet2.R;
 import com.qwentum.cheatsheet2.objects.Timetable;
@@ -34,7 +36,6 @@ public class TimetableCardFragment extends Fragment {
     private final int TYPE_ITEM_1 = 1;
     private final int TYPE_ITEM_2 = 2;
 
-    private Calendar cal;
     private Timetable timetable;
     private SharedPreferences SP;
     private WeekDay currentDay;
@@ -55,10 +56,8 @@ public class TimetableCardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //calendar has to be initialised first, so it's here
-        cal = Calendar.getInstance();
         timetable = new Timetable();
         SP = PreferenceManager.getDefaultSharedPreferences(MainActivity.context);
-        cal.setFirstDayOfWeek(Calendar.MONDAY);
         //Current subject ID and timetable GET
         /*if (!timetable.isWeekend()) {
             currentDayTimetable = timetable.getTimetable(currentDay);
@@ -164,10 +163,22 @@ public class TimetableCardFragment extends Fragment {
                         mImageView0.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[0]));
                         break;
                 }
-                //TODO second argument may not work
-                if (model.mLessonDone && getArguments().getInt(ARG_PAGE,0) == cal.get(Calendar.DAY_OF_WEEK)) {
+                if (model.mLessonDone && getArguments().getInt(ARG_PAGE,0) == Helper.calendarGet(Calendar.DAY_OF_WEEK)) {
                     //Log.e("Fragment","Settings colors with alpha");
-                    mCardView.setAlpha(0.80f);
+                    switch (viewType) {
+                        case TYPE_ITEM_2:
+                            mImageView2.getDrawable().mutate().setAlpha(128);
+                            mSubjectName2.setTypeface(Typeface.DEFAULT);
+                        case TYPE_ITEM_1:
+                            mImageView1.getDrawable().mutate().setAlpha(128);
+                            mSubjectName1.setTypeface(Typeface.DEFAULT);
+                        case TYPE_ITEM_0:
+                            mImageView0.getDrawable().mutate().setAlpha(128);
+                            mSubjectName0.setTypeface(Typeface.DEFAULT);
+                            break;
+                    }
+                    mTimes.setText("Lesson has ended");
+                    //mCardView.setAlpha(0.80f);
                 }
             /*} else {
                 switch (viewType) {
@@ -263,7 +274,6 @@ public class TimetableCardFragment extends Fragment {
             return currentDay._classType[position];
         }
 
-        //TODO change this
         @Override
         public int getItemCount() {
             return mModels.size();

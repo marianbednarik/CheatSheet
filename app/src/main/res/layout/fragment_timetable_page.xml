@@ -13,8 +13,6 @@
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:tabMode="scrollable"
-            app:layout_scrollFlags="scroll|enterAlways"
             app:theme="@style/AppTheme.AppBarOverlay"/>
     </android.support.design.widget.AppBarLayout>
 

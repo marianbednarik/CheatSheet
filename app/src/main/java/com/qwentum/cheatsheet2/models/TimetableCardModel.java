@@ -14,7 +14,7 @@ import com.qwentum.cheatsheet2.objects.WeekDay;
 public class TimetableCardModel {
 
     public int[] mSubjectIdColor;
-    public int mTextColor, mCardColor;
+    //public int mTextColor, mCardColor;
     public boolean mLessonDone = false, mDisabled = false;
     public String[] mSubjectName, mSubjectInfo, mSubjectID, mGroup;
     public String mTimes, mSubjectNum;
@@ -31,7 +31,7 @@ public class TimetableCardModel {
         mGroup = new String[classType + 1];
         mSubjectName = new String[classType + 1];
         mSubjectInfo = new String[classType + 1];
-        //TODO there is no need for color changing if I'm using alpha for fading the lessons. + Check other methods for things like this
+        //TODO maybe only change the color when it's disabled (may not work)
         if (((!currentDay._startsWithZero && position*2 < tt.getCurrentSubjectID(false) - 2) || (currentDay._startsWithZero && position*2 < tt.getCurrentSubjectID(false))) && (!tt.areLessonsDone(currentDay._classType.length) && !tt.isWeekend())) {
             mLessonDone = true;
         /*    mTextColor = R.color.md_grey_500;
