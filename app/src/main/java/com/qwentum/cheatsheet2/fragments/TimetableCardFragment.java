@@ -154,7 +154,7 @@ public class TimetableCardFragment extends Fragment {
         }
 
         public void updateColor(TimetableCardModel model, int viewType) {
-            if (SP.getBoolean("useAlpha", true)) {
+            //if (SP.getBoolean("useAlpha", true)) {
                 switch (viewType) {
                     case TYPE_ITEM_2:
                         mImageView2.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[2]));
@@ -166,10 +166,10 @@ public class TimetableCardFragment extends Fragment {
                 }
                 //TODO second argument may not work
                 if (model.mLessonDone && getArguments().getInt(ARG_PAGE,0) == cal.get(Calendar.DAY_OF_WEEK)) {
-                    Log.e("Fragment","Settings colors with alpha");
+                    //Log.e("Fragment","Settings colors with alpha");
                     mCardView.setAlpha(0.80f);
                 }
-            } else {
+            /*} else {
                 switch (viewType) {
                     case TYPE_ITEM_2:
                         mImageView2.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[2]));
@@ -186,7 +186,7 @@ public class TimetableCardFragment extends Fragment {
                         mCardView.setBackgroundColor(ContextCompat.getColor(MainActivity.context, model.mCardColor));
                         break;
                 }
-            }
+            }*/
         }
     }
 

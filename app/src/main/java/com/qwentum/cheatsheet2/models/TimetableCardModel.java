@@ -34,22 +34,22 @@ public class TimetableCardModel {
         //TODO there is no need for color changing if I'm using alpha for fading the lessons. + Check other methods for things like this
         if (((!currentDay._startsWithZero && position*2 < tt.getCurrentSubjectID(false) - 2) || (currentDay._startsWithZero && position*2 < tt.getCurrentSubjectID(false))) && (!tt.areLessonsDone(currentDay._classType.length) && !tt.isWeekend())) {
             mLessonDone = true;
-            mTextColor = R.color.md_grey_500;
+        /*    mTextColor = R.color.md_grey_500;
             mCardColor = R.color.md_grey_100;
         } else {
             mTextColor = R.color.md_grey_900;
-            mCardColor = R.color.md_grey_50;
+            mCardColor = R.color.md_grey_50;*/
         }
         //Log.e("CardModel", "Creating Model #" + position);
         if (SP.getBoolean("personaliseTimetable", false)) { //Personalised
             int temp = currentDay._classNames[userGroup][position];
             if (temp != -1) {
                 mDisabled = false;
-                if (mLessonDone) {
-                    mSubjectIdColor[0] = tt.subjectColorsOld[temp];
-                } else {
+                //if (mLessonDone) {
+                //    mSubjectIdColor[0] = tt.subjectColorsOld[temp];
+                //} else {
                     mSubjectIdColor[0] = tt.subjectColors[temp];
-                }
+                //}
 
                 if (!currentDay._startsWithZero) {
                     mSubjectNum = Integer.toString(position + 1);
@@ -75,11 +75,11 @@ public class TimetableCardModel {
                     mSubjectInfo[i] = tt.teacherNames[temp] + " - " + tt.classroomNames[currentDay._classInfo[i][position]];
                 }
 
-                if (mLessonDone) {
-                    mSubjectIdColor[i] = tt.subjectColorsOld[temp];
-                } else {
+                //if (mLessonDone) {
+                //    mSubjectIdColor[i] = tt.subjectColorsOld[temp];
+                //} else {
                     mSubjectIdColor[i] = tt.subjectColors[temp];
-                }
+                //}
 
                 if (!currentDay._startsWithZero) {
                     mSubjectNum = Integer.toString(position + 1);

@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.qwentum.cheatsheet2.Helper;
 import com.qwentum.cheatsheet2.R;
+
+import java.util.Calendar;
 
 public class TimetablePageFragment extends Fragment {
 
@@ -28,10 +31,11 @@ public class TimetablePageFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("Wednesday"));
         tabLayout.addTab(tabLayout.newTab().setText("Thursday"));
         tabLayout.addTab(tabLayout.newTab().setText("Friday"));
-        tabLayout.getSelectedTabPosition();
+        //tabLayout.getSelectedTabPosition();
         final ViewPager viewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
         viewPager.setAdapter(new TimetablePagerAdapter(getChildFragmentManager()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.setCurrentItem(Helper.calendarGet(Calendar.DAY_OF_WEEK));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
