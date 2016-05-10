@@ -163,9 +163,9 @@ public class MainActivity extends AppCompatActivity
             }
 
             public void onFinish() {
-                //TODO lesson fading
+                //TODO put the timer on another thread so the app doesn't freeze when a lesson ends. And maybe the fragment manager too, so it doesn't lag.
                 int currentSubject = timetable.getCurrentSubjectID(false);
-                if (currentSubject % 2 != 0) {
+                if (currentSubject % 2 != 0 && currentSubject == timetablePageFragment.tabLayout.getSelectedTabPosition()) {
                     TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(timetablePageFragment.tabLayout.getSelectedTabPosition());
                     currentPageFragment.models.get(timetable.getCurrentSubjectID(true) - 1).mLessonDone = true;
                     currentPageFragment.recyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true) - 1);
