@@ -28,6 +28,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "Main";
     public static Context context;
     TimetablePageFragment timetablePageFragment;
     TextView textTimer;
