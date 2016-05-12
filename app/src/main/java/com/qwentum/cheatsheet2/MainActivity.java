@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity
             timetablePageFragment = new TimetablePageFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.fragment_container, timetablePageFragment).commit();
+        } else {
+            timetablePageFragment = (TimetablePageFragment) getSupportFragmentManager().getFragment(savedInstanceState, "mTimetablePageFragmentContent");
         }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -86,6 +88,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //Save the fragment's instance
+        getSupportFragmentManager().putFragment(outState, "mTimetablePageFragmentContent", timetablePageFragment);
     }
 
     @Override
