@@ -1,8 +1,6 @@
 package com.qwentum.cheatsheet2.fragments;
 
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +16,7 @@ import com.qwentum.cheatsheet2.R;
 
 import java.util.Calendar;
 
-public class TimetablePageFragment extends Fragment implements Parcelable {
+public class TimetablePageFragment extends Fragment {
 
     public TabLayout tabLayout;
     private String TAG = "TTPageFragment";
@@ -60,49 +58,6 @@ public class TimetablePageFragment extends Fragment implements Parcelable {
         return inflatedView;
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            //Restore the fragment's state here
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //Save the fragment's state here
-        outState.putSparseParcelableArray("mGeneratedFragments", generatedFragments);
-    }
-
-    @Override
-    public void setArguments(Bundle args) {
-        super.setArguments(args);
-    }
-
-    @Оverride
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[]{this.id,
-                this.name,
-                this.grade});
-    }
-
-    //Parcel Creator
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public TimetablePageFragment createFromParcel(Parcel in) {
-            return new TimetablePageFragment(in);
-        }
-
-        public TimetablePageFragment[] newArray(int size) {
-            return new TimetablePageFragment[size];
-        }
-    };
-
     public class TimetablePagerAdapter extends FragmentPagerAdapter {
         final int PAGE_COUNT = 5;
 
@@ -132,12 +87,5 @@ public class TimetablePageFragment extends Fragment implements Parcelable {
             super.destroyItem(container, position, object);
             generatedFragments.remove(position);
         }
-
-        /*public Fragment getRegisteredFragment(int position) {
-            return generatedFragments.get(position);
-        }*/
     }
 }
-
-// Since this is an object collection, use a FragmentStatePagerAdapter,
-// and NOT a FragmentPagerAdapter.

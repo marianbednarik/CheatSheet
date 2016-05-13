@@ -43,12 +43,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         //Normal Content view
         setContentView(R.layout.activity_main);
+        //FUCK PARCELABLES FUCK ALL OF THEM
         if (savedInstanceState == null) {
             timetablePageFragment = new TimetablePageFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.fragment_container, timetablePageFragment).commit();
         } else {
-            timetablePageFragment = (TimetablePageFragment) getSupportFragmentManager().getFragment(savedInstanceState, "mTimetablePageFragmentContent");
+            timetablePageFragment = (TimetablePageFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
