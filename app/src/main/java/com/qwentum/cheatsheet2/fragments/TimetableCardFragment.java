@@ -3,6 +3,7 @@ package com.qwentum.cheatsheet2.fragments;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -207,16 +208,16 @@ public class TimetableCardFragment extends Fragment {
         // Set numbers of List in RecyclerView.
         @Override
         public void onAttachedToRecyclerView(final RecyclerView recyclerView) {
-            /*if (!areLessonsDone) {
+            if (!timetable.areLessonsDone(currentDay._classType.length)) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView
                                 .getLayoutManager();
-                        layoutManager.scrollToPositionWithOffset(currentSubjectId, 0);
+                        layoutManager.scrollToPositionWithOffset(timetable.getCurrentSubjectID(true), 0);
                     }
                 }, 10);
-            }*/
+            }
         }
 
         public final List<TimetableCardModel> mModels;
