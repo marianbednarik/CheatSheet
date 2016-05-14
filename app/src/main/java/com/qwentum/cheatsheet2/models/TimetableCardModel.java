@@ -13,7 +13,6 @@ import com.qwentum.cheatsheet2.objects.WeekDay;
 public class TimetableCardModel {
 
     public int[] mSubjectIdColor;
-    //public int mTextColor, mCardColor;
     public boolean mLessonDone = false, mDisabled = false;
     public String[] mSubjectName, mSubjectInfo, mSubjectID, mGroup;
     public String mTimes, mSubjectNum;
@@ -33,22 +32,13 @@ public class TimetableCardModel {
         //TODO maybe only change the color when it's disabled (may not work)
         if (((!currentDay._startsWithZero && position*2 < tt.getCurrentSubjectID(false) - 2) || (currentDay._startsWithZero && position*2 < tt.getCurrentSubjectID(false))) && (!tt.areLessonsDone(currentDay._classType.length) && !tt.isWeekend())) {
             mLessonDone = true;
-        /*    mTextColor = R.color.md_grey_500;
-            mCardColor = R.color.md_grey_100;
-        } else {
-            mTextColor = R.color.md_grey_900;
-            mCardColor = R.color.md_grey_50;*/
         }
         //Log.e("CardModel", "Creating Model #" + position);
         if (SP.getBoolean("personaliseTimetable", false)) { //Personalised
             int temp = currentDay._classNames[userGroup][position];
             if (temp != -1) {
                 mDisabled = false;
-                //if (mLessonDone) {
-                //    mSubjectIdColor[0] = tt.subjectColorsOld[temp];
-                //} else {
                     mSubjectIdColor[0] = tt.subjectColors[temp];
-                //}
 
                 if (!currentDay._startsWithZero) {
                     mSubjectNum = Integer.toString(position + 1);
@@ -73,12 +63,7 @@ public class TimetableCardModel {
                 } else {
                     mSubjectInfo[i] = tt.teacherNames[temp] + " - " + tt.classroomNames[currentDay._classInfo[i][position]];
                 }
-
-                //if (mLessonDone) {
-                //    mSubjectIdColor[i] = tt.subjectColorsOld[temp];
-                //} else {
                     mSubjectIdColor[i] = tt.subjectColors[temp];
-                //}
 
                 if (!currentDay._startsWithZero) {
                     mSubjectNum = Integer.toString(position + 1);
@@ -112,7 +97,5 @@ public class TimetableCardModel {
         } else {
             mTimes = (tt.timesReal[position * 2 + 2] + " - " + tt.timesReal[position * 2 + 3]);
         }
-        //break;
-        //}
     }
 }

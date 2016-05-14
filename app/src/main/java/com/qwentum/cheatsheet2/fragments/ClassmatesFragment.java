@@ -100,10 +100,8 @@ public class ClassmatesFragment extends Fragment {
         @Override
         public void onBindViewHolder(ClassmatesViewHolder holder, int position) {
             ClassmatesModel model = mModels.get(position);
-            //if (!model.mDisabled) {
             //Log.e(TAG,"Binding card #" + position + "...");
             holder.bind(model);
-            //}
         }
 
         @Override

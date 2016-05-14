@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Setting the title
         textTimer = new TextView(this);
         setTitle(R.string.main_activity_name);
         context = getBaseContext();

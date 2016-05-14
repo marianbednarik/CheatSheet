@@ -55,22 +55,8 @@ public class TimetableCardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //calendar has to be initialised first, so it's here
         timetable = new Timetable();
         SP = PreferenceManager.getDefaultSharedPreferences(MainActivity.context);
-        //Current subject ID and timetable GET
-        /*if (!timetable.isWeekend()) {
-            currentDayTimetable = timetable.getTimetable(currentDay);
-            if (timetable.areLessonsDone(currentDayTimetable._classType.length)) {
-                if (currentDay == Calendar.FRIDAY) {
-                    currentDayTimetable = timetable.getTimetable(Calendar.MONDAY);
-                } else {
-                    currentDayTimetable = timetable.getTimetable(currentDay + 1);
-                }
-            }
-        } else {
-            currentDayTimetable = timetable.getTimetable(Calendar.MONDAY);
-        }*/
         currentDay = timetable.getTimetable(getArguments().getInt(ARG_PAGE,0) + 2);
 
         models = new ArrayList<>();
@@ -153,7 +139,6 @@ public class TimetableCardFragment extends Fragment {
         }
 
         public void updateColor(TimetableCardModel model, int viewType) {
-            //if (SP.getBoolean("useAlpha", true)) {
                 switch (viewType) {
                     case TYPE_ITEM_2:
                         mImageView2.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[2]));
@@ -164,7 +149,7 @@ public class TimetableCardFragment extends Fragment {
                         break;
                 }
                 if (model.mLessonDone && getArguments().getInt(ARG_PAGE,0) == Helper.calendarGet(Calendar.DAY_OF_WEEK)) {
-                    //Log.e("Fragment","Settings colors with alpha");
+                    //Log.d("Fragment","Settings colors with alpha");
                     switch (viewType) {
                         case TYPE_ITEM_2:
                             mImageView2.getDrawable().mutate().setAlpha(128);
@@ -180,24 +165,6 @@ public class TimetableCardFragment extends Fragment {
                     mTimes.setText("Lesson has ended");
                     //mCardView.setAlpha(0.80f);
                 }
-            /*} else {
-                switch (viewType) {
-                    case TYPE_ITEM_2:
-                        mImageView2.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[2]));
-                        mSubjectName2.setTextColor(ContextCompat.getColor(MainActivity.context, model.mTextColor));
-                        mSubjectInfo2.setTextColor(ContextCompat.getColor(MainActivity.context, model.mTextColor));
-                    case TYPE_ITEM_1:
-                        mImageView2.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[2]));
-                        mSubjectName1.setTextColor(ContextCompat.getColor(MainActivity.context, model.mTextColor));
-                        mSubjectInfo1.setTextColor(ContextCompat.getColor(MainActivity.context, model.mTextColor));
-                    case TYPE_ITEM_0:
-                        mSubjectName0.setTextColor(ContextCompat.getColor(MainActivity.context, model.mTextColor));
-                        mSubjectInfo0.setTextColor(ContextCompat.getColor(MainActivity.context, model.mTextColor));
-                        mTimes.setTextColor(ContextCompat.getColor(MainActivity.context, model.mTextColor));
-                        mCardView.setBackgroundColor(ContextCompat.getColor(MainActivity.context, model.mCardColor));
-                        break;
-                }
-            }*/
         }
     }
 
@@ -205,7 +172,6 @@ public class TimetableCardFragment extends Fragment {
      * Adapter to display recycler view.
      */
     public class ContentAdapter extends RecyclerView.Adapter<TimetableCardViewHolder> {
-        // Set numbers of List in RecyclerView.
         @Override
         public void onAttachedToRecyclerView(final RecyclerView recyclerView) {
             if (!timetable.areLessonsDone(currentDay._classType.length)) {
@@ -230,10 +196,6 @@ public class TimetableCardFragment extends Fragment {
         public TimetableCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView;
             switch (viewType) {
-                /*case TYPE_HEADER:
-                    itemView = LayoutInflater.from(MainActivity.context).
-                            inflate(R.layout.item_timetable_header, parent, false);
-                    return new TimetableCardViewHolder(itemView, viewType);*/
                 case TYPE_ITEM_0:
                     itemView = LayoutInflater.from(MainActivity.context).
                         inflate(R.layout.item_timetable_card0, parent, false);
@@ -254,16 +216,11 @@ public class TimetableCardFragment extends Fragment {
         @Override
         public void onBindViewHolder(TimetableCardViewHolder holder, int position) {
             TimetableCardModel model = mModels.get(position);
-            //if (!model.mDisabled) {
-                //Log.e(TAG,"Binding card #" + position + "...");
                 holder.bind(model, holder.getItemViewType());
-            //}
         }
 
         @Override
         public int getItemViewType(int position) {
-            //if (position == 0)
-            //    return TYPE_HEADER;
             if (SP.getBoolean("personaliseTimetable", false)) {
                 return TYPE_ITEM_0;
             }
