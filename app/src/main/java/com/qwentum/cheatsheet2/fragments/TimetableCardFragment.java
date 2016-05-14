@@ -9,7 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +43,7 @@ public class TimetableCardFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
 
     public static TimetableCardFragment newInstance(int page) {
-        Log.d(TAG, "Generating Timetable with ID #" + (page) + "...");
+        //Log.d(TAG, "Generating Timetable with ID #" + (page) + "...");
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
         TimetableCardFragment fragment = new TimetableCardFragment();

@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.fragment_container, timetablePageFragment).commit();
         } else {
+            Log.d(TAG, "Assigning fragment after getting cleared from memory");
             timetablePageFragment = (TimetablePageFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         }
 
@@ -176,7 +178,9 @@ public class MainActivity extends AppCompatActivity
             public void onFinish() {
                 //TODO put the timer on another thread so the app doesn't freeze when a lesson ends. And maybe the fragment manager too, so it doesn't lag.
                 int currentSubject = timetable.getCurrentSubjectID(false);
-                if (currentSubject % 2 != 0 && currentSubject == timetablePageFragment.tabLayout.getSelectedTabPosition()) {
+                //Log.d(TAG, "Current subject = " + timetable.getCurrentSubjectID(true) + '\n' + "Current tab selected = " + timetablePageFragment.tabLayout.getSelectedTabPosition());
+                if (currentSubject % 2 != 0 && Helper.calendarGet(Calendar.DAY_OF_WEEK) == timetablePageFragment.tabLayout.getSelectedTabPosition()) {
+                    //Log.d(TAG, "Changing lesson sate to Done.");
                     TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(timetablePageFragment.tabLayout.getSelectedTabPosition());
                     currentPageFragment.models.get(timetable.getCurrentSubjectID(true) - 1).mLessonDone = true;
                     currentPageFragment.recyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true) - 1);
