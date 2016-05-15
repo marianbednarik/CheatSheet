@@ -174,7 +174,8 @@ public class MainActivity extends AppCompatActivity
                     //Log.d(TAG, "Changing lesson sate to Done.");
                     TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(timetablePageFragment.tabLayout.getSelectedTabPosition());
                     currentPageFragment.models.get(timetable.getCurrentSubjectID(true) - 1).mLessonDone = true;
-                    currentPageFragment.recyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true) - 1);
+                    currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true) - 1);
+                    currentPageFragment.autoSmoothScrollTo(timetable.getCurrentSubjectID(true));
                 }
                 if (currentSubject < 18) {
                     try {

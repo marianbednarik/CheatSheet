@@ -1,15 +1,18 @@
 package com.qwentum.cheatsheet2.fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.PointF;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +43,7 @@ public class TimetableCardFragment extends Fragment {
     private SharedPreferences SP;
     private WeekDay currentDay;
     public List<TimetableCardModel> models;
-    public RecyclerView recyclerView;
+    public RecyclerView mRecyclerView;
     public static final String ARG_PAGE = "ARG_PAGE";
 
     public static TimetableCardFragment newInstance(int page) {
@@ -57,7 +60,7 @@ public class TimetableCardFragment extends Fragment {
                              Bundle savedInstanceState) {
         timetable = new Timetable();
         SP = PreferenceManager.getDefaultSharedPreferences(MainActivity.context);
-        currentDay = timetable.getTimetable(getArguments().getInt(ARG_PAGE,0) + 2);
+        currentDay = timetable.getTimetable(getArguments().getInt(ARG_PAGE, 0) + 2);
 
         models = new ArrayList<>();
         //Log.e(TAG, "Generating Cards with Day ID #" + (getArguments().getInt(ARG_PAGE,0) + 2) + "...");
@@ -67,15 +70,22 @@ public class TimetableCardFragment extends Fragment {
             //Log.e(TAG, "Successfully added card #" + i);
         }
         //Log.e(TAG, "Done generating card");
-        recyclerView = (RecyclerView) inflater.inflate(
+        mRecyclerView = (RecyclerView) inflater.inflate(
                 //recycler view xml
                 R.layout.recycler_view, container, false);
         ContentAdapter adapter = new ContentAdapter(models);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new MyCustomLayoutManager(getActivity()));
+        autoSmoothScrollTo(timetable.getCurrentSubjectID(true));
+        return mRecyclerView;
+    }
 
-        return recyclerView;
+    public void autoSmoothScrollTo(int position) {
+        if (Helper.calendarGet(Calendar.DAY_OF_WEEK) == getArguments().getInt(ARG_PAGE, 0)) {
+            if (!currentDay._startsWithZero) position -= 1;
+            mRecyclerView.smoothScrollToPosition(position);
+        }
     }
 
     public class TimetableCardViewHolder extends RecyclerView.ViewHolder {
@@ -131,7 +141,7 @@ public class TimetableCardFragment extends Fragment {
                         mSubjectInfo0.setText(model.mSubjectInfo[0]);
                         mTimes.setText(model.mTimes);
                         updateColor(model, viewType);
-                    break;
+                        break;
                 }
             } else {
                 mCardView.setVisibility(View.GONE);
@@ -139,32 +149,32 @@ public class TimetableCardFragment extends Fragment {
         }
 
         public void updateColor(TimetableCardModel model, int viewType) {
+            switch (viewType) {
+                case TYPE_ITEM_2:
+                    mImageView2.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[2]));
+                case TYPE_ITEM_1:
+                    mImageView1.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[1]));
+                case TYPE_ITEM_0:
+                    mImageView0.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[0]));
+                    break;
+            }
+            if (model.mLessonDone && getArguments().getInt(ARG_PAGE, 0) == Helper.calendarGet(Calendar.DAY_OF_WEEK)) {
+                //Log.d("Fragment","Settings colors with alpha");
                 switch (viewType) {
                     case TYPE_ITEM_2:
-                        mImageView2.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[2]));
+                        mImageView2.getDrawable().mutate().setAlpha(128);
+                        mSubjectName2.setTypeface(Typeface.DEFAULT);
                     case TYPE_ITEM_1:
-                        mImageView1.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[1]));
+                        mImageView1.getDrawable().mutate().setAlpha(128);
+                        mSubjectName1.setTypeface(Typeface.DEFAULT);
                     case TYPE_ITEM_0:
-                        mImageView0.setColorFilter(ContextCompat.getColor(MainActivity.context, model.mSubjectIdColor[0]));
+                        mImageView0.getDrawable().mutate().setAlpha(128);
+                        mSubjectName0.setTypeface(Typeface.DEFAULT);
                         break;
                 }
-                if (model.mLessonDone && getArguments().getInt(ARG_PAGE,0) == Helper.calendarGet(Calendar.DAY_OF_WEEK)) {
-                    //Log.d("Fragment","Settings colors with alpha");
-                    switch (viewType) {
-                        case TYPE_ITEM_2:
-                            mImageView2.getDrawable().mutate().setAlpha(128);
-                            mSubjectName2.setTypeface(Typeface.DEFAULT);
-                        case TYPE_ITEM_1:
-                            mImageView1.getDrawable().mutate().setAlpha(128);
-                            mSubjectName1.setTypeface(Typeface.DEFAULT);
-                        case TYPE_ITEM_0:
-                            mImageView0.getDrawable().mutate().setAlpha(128);
-                            mSubjectName0.setTypeface(Typeface.DEFAULT);
-                            break;
-                    }
-                    mTimes.setText("Lesson has ended");
-                    //mCardView.setAlpha(0.80f);
-                }
+                mTimes.setText("Lesson has ended");
+                //mCardView.setAlpha(0.80f);
+            }
         }
     }
 
@@ -172,19 +182,6 @@ public class TimetableCardFragment extends Fragment {
      * Adapter to display recycler view.
      */
     public class ContentAdapter extends RecyclerView.Adapter<TimetableCardViewHolder> {
-        @Override
-        public void onAttachedToRecyclerView(final RecyclerView recyclerView) {
-            if (!timetable.areLessonsDone(currentDay._classType.length)) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView
-                                .getLayoutManager();
-                        layoutManager.scrollToPositionWithOffset(timetable.getCurrentSubjectID(true), 0);
-                    }
-                }, 10);
-            }
-        }
 
         public final List<TimetableCardModel> mModels;
 
@@ -198,7 +195,7 @@ public class TimetableCardFragment extends Fragment {
             switch (viewType) {
                 case TYPE_ITEM_0:
                     itemView = LayoutInflater.from(MainActivity.context).
-                        inflate(R.layout.item_timetable_card0, parent, false);
+                            inflate(R.layout.item_timetable_card0, parent, false);
                     return new TimetableCardViewHolder(itemView, viewType);
                 case TYPE_ITEM_1:
                     itemView = LayoutInflater.from(MainActivity.context).
@@ -216,7 +213,7 @@ public class TimetableCardFragment extends Fragment {
         @Override
         public void onBindViewHolder(TimetableCardViewHolder holder, int position) {
             TimetableCardModel model = mModels.get(position);
-                holder.bind(model, holder.getItemViewType());
+            holder.bind(model, holder.getItemViewType());
         }
 
         @Override
@@ -234,6 +231,44 @@ public class TimetableCardFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mModels.size();
+        }
+    }
+
+    public class MyCustomLayoutManager extends LinearLayoutManager {
+        private static final float MILLISECONDS_PER_INCH = 50f;
+        private Context mContext;
+
+        public MyCustomLayoutManager(Context context) {
+            super(context);
+            mContext = context;
+        }
+
+        @Override
+        public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, final int position) {
+
+            final LinearSmoothScroller smoothScroller = new LinearSmoothScroller(mContext) {
+
+                //Calculate the movement direction
+                @Override
+                public PointF computeScrollVectorForPosition(int targetPosition) {
+                    return MyCustomLayoutManager.this.computeScrollVectorForPosition(targetPosition);
+                }
+
+                //Calculate movement speed
+                @Override
+                protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
+                    return MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
+                }
+
+                //Snap to start of RecyclerView
+                @Override
+                protected int getVerticalSnapPreference() {
+                    return LinearSmoothScroller.SNAP_TO_START;
+                }
+            };
+
+            smoothScroller.setTargetPosition(position);
+            startSmoothScroll(smoothScroller);
         }
     }
 }
