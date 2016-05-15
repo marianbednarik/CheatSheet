@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class TimetableCardFragment extends Fragment {
     private Timetable timetable;
     private SharedPreferences SP;
     private WeekDay currentDay;
+    private ContentAdapter adapter;
     public List<TimetableCardModel> models;
     public RecyclerView mRecyclerView;
     public static final String ARG_PAGE = "ARG_PAGE";
@@ -56,24 +58,32 @@ public class TimetableCardFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        //if (savedInstanceState == null) {
         timetable = new Timetable();
         SP = PreferenceManager.getDefaultSharedPreferences(MainActivity.context);
         currentDay = timetable.getTimetable(getArguments().getInt(ARG_PAGE, 0) + 2);
 
         models = new ArrayList<>();
-        //Log.e(TAG, "Generating Cards with Day ID #" + (getArguments().getInt(ARG_PAGE,0) + 2) + "...");
+        Log.d(TAG, "Generating Cards with Day ID #" + (getArguments().getInt(ARG_PAGE, 0) + 2) + "...");
         for (int i = 0; i < currentDay._classType.length; i++) {
-            //Log.e(TAG, "Adding card #" + i + "...");
+            Log.d(TAG, "Adding card #" + i + "...");
             models.add(i, new TimetableCardModel(i, currentDay));
-            //Log.e(TAG, "Successfully added card #" + i);
+            Log.d(TAG, "Successfully added card #" + i);
         }
-        //Log.e(TAG, "Done generating card");
+        Log.d(TAG, "Done generating card");
+
+        adapter = new ContentAdapter(models);
+        //}
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         mRecyclerView = (RecyclerView) inflater.inflate(
                 //recycler view xml
                 R.layout.recycler_view, container, false);
-        ContentAdapter adapter = new ContentAdapter(models);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new MyCustomLayoutManager(getActivity()));

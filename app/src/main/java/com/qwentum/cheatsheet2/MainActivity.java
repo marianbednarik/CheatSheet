@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context = getBaseContext();
         super.onCreate(savedInstanceState);
         //Normal Content view
         setContentView(R.layout.activity_main);
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity
 
         textTimer = new TextView(this);
         setTitle(R.string.text_drawer_option_overview);
-        context = getBaseContext();
 
         //TIMER
         if (timetable.getCurrentSubjectID(false) < 18) {
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity
                     //Log.d(TAG, "Changing lesson sate to Done.");
                     TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(timetablePageFragment.tabLayout.getSelectedTabPosition());
                     currentPageFragment.models.get(timetable.getCurrentSubjectID(true) - 1).mLessonDone = true;
-                    currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true) - 1);
+                    //currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true) - 1);
                     currentPageFragment.autoSmoothScrollTo(timetable.getCurrentSubjectID(true));
                 }
                 if (currentSubject < 18) {

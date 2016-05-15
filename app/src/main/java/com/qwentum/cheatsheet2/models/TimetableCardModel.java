@@ -31,7 +31,6 @@ public class TimetableCardModel {
         mGroup = new String[classType + 1];
         mSubjectName = new String[classType + 1];
         mSubjectInfo = new String[classType + 1];
-        //TODO maybe only change the color when it's disabled (may not work)
         if (((!currentDay._startsWithZero && position*2 < tt.getCurrentSubjectID(false) - 2) || (currentDay._startsWithZero && position*2 < tt.getCurrentSubjectID(false))) && (!tt.areLessonsDone(currentDay._classType.length) && !tt.isWeekend())) {
             mLessonDone = true;
         }
