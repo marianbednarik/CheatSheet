@@ -32,4 +32,5 @@
     <string name="text_lesson_end">Hodina sa skončila</string>
     <string name="text_undefined">Nezadané</string>
     <string name="text_undefined_number">-</string>
+    <string name="text_snackbar_soon">Už čoskoro :P</string>
 </resources>

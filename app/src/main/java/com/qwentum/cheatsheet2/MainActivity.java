@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -88,6 +89,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView text = (TextView) navigationView.getHeaderView(0).findViewById(R.id.text_drawer_username);
+        text.setText(getResources().getStringArray(R.array.listArray)[Helper.getSharedPref("selectedName")]);
     }
 
     @Override
@@ -146,6 +150,8 @@ public class MainActivity extends AppCompatActivity
             toolbar.setElevation(0);
             setTitle(R.string.text_drawer_option_overview);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, timetablePageFragment).commit();
+        } else {
+            Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.text_snackbar_soon, Snackbar.LENGTH_LONG).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -174,8 +180,8 @@ public class MainActivity extends AppCompatActivity
                     //Log.d(TAG, "Changing lesson sate to Done.");
                     TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(timetablePageFragment.tabLayout.getSelectedTabPosition());
                     currentPageFragment.models.get(timetable.getCurrentSubjectID(true) - 1).mLessonDone = true;
-                    //currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true) - 1);
-                    currentPageFragment.autoSmoothScrollTo(timetable.getCurrentSubjectID(true));
+                    currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true) - 1);
+                    currentPageFragment.autoSmoothScrollTo(timetable.getCurrentSubjectID(true) + 1);
                 }
                 if (currentSubject < 18) {
                     try {
