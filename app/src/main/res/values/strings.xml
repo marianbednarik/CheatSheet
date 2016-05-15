@@ -33,6 +33,7 @@
     <string name="text_tab_wednesday">Wed</string>
     <string name="text_tab_thursday">Thu</string>
     <string name="text_tab_friday">Fri</string>
+    <string name="text_lesson_end">Lesson has ended</string>
     <string name="text_undefined">undefined</string>
     <string name="text_undefined_number">-</string>
 </resources>

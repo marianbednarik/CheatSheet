@@ -29,6 +29,7 @@
     <string name="text_tab_wednesday">Str</string>
     <string name="text_tab_thursday">Štv</string>
     <string name="text_tab_friday">Pia</string>
+    <string name="text_lesson_end">Hodina sa skončila</string>
     <string name="text_undefined">Nezadané</string>
     <string name="text_undefined_number">-</string>
 </resources>

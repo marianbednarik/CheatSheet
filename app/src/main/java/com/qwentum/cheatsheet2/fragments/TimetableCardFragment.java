@@ -172,7 +172,7 @@ public class TimetableCardFragment extends Fragment {
                         mSubjectName0.setTypeface(Typeface.DEFAULT);
                         break;
                 }
-                mTimes.setText("Lesson has ended");
+                mTimes.setText(R.string.text_lesson_end);
                 //mCardView.setAlpha(0.80f);
             }
         }
@@ -184,7 +184,6 @@ public class TimetableCardFragment extends Fragment {
     public class ContentAdapter extends RecyclerView.Adapter<TimetableCardViewHolder> {
 
         public final List<TimetableCardModel> mModels;
-
         public ContentAdapter(List<TimetableCardModel> models) {
             mModels = models;
         }
