@@ -23,14 +23,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/dayRange"
             android:textSize="14sp"
-            android:text="@string/undefined_number"
+            android:text="@string/text_undefined_number"
             android:layout_alignParentEnd="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:id="@+id/currentClassmateWeekNum"
-            android:text="@string/undefined"
+            android:text="@string/text_undefined"
             android:layout_alignParentStart="true"/>
         <include
             layout="@layout/devider"
@@ -61,13 +61,13 @@
             android:textSize="21sp"
             android:textColor="@color/md_grey_50"
             android:gravity="center"
-            android:text="@string/undefined_number"/>
+            android:text="@string/text_undefined_number" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/devider_0"
             android:id="@+id/classmateA"
-            android:text="@string/undefined"
+            android:text="@string/text_undefined"
             android:textSize="20sp"
             android:textStyle="bold"
             android:paddingStart="16dp"
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/classmateAinfo"
-            android:text="Group A"
+            android:text="@string/text_group_a"
             android:textSize="16sp"
             android:paddingStart="16dp"
             android:layout_toEndOf="@id/lessonColor_0"
@@ -112,14 +112,14 @@
             android:textSize="21sp"
             android:textColor="@color/md_grey_50"
             android:gravity="center"
-            android:text="@string/undefined_number"/>
+            android:text="@string/text_undefined_number" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/devider_1"
             android:layout_marginTop="8dp"
             android:id="@+id/classmateB"
-            android:text="@string/undefined"
+            android:text="@string/text_undefined"
             android:textSize="20sp"
             android:textStyle="bold"
             android:paddingStart="16dp"
@@ -128,7 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/classmateBinfo"
-            android:text="Group B"
+            android:text="@string/text_group_b"
             android:textSize="16sp"
             android:paddingStart="16dp"
             android:layout_toEndOf="@id/lessonColor_0"

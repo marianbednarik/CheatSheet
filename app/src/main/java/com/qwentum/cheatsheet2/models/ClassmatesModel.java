@@ -1,5 +1,9 @@
 package com.qwentum.cheatsheet2.models;
 
+import android.content.res.Resources;
+
+import com.qwentum.cheatsheet2.MainActivity;
+import com.qwentum.cheatsheet2.R;
 import com.qwentum.cheatsheet2.objects.Timetable;
 
 import java.text.ParseException;
@@ -43,7 +47,7 @@ public class ClassmatesModel {
         Date doDate = new Date(sum);
         dayRange = classmatesDayDisplay.format(odDate) + " - " + classmatesDayDisplay.format(doDate);
 
-        //TODO translation
-        weekNum = (position + 1) + ". Week";
+        Resources res = MainActivity.context.getResources();
+        weekNum = res.getString(R.string.text_week_number, position + 1);
     }
 }

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreference android:title="Personalise timetable"
-        android:summary="Only classes for your group will be shown"
+    <SwitchPreference
+        android:title="@string/title_settings_personalise"
+        android:summary="@string/text_settings_personalise"
         android:key="personaliseTimetable"
         android:defaultValue="false"
         />
 
-    <ListPreference     android:title="Name"
+    <ListPreference
+        android:title="Name"
         android:summary="Select your name to get a personalised timetable"
         android:key="selectedName"
         android:defaultValue="0"
@@ -19,12 +21,12 @@
         android:summary="Nicer rendering of past lessons (May affect performance)"
         android:key="useAlpha"
         android:defaultValue="true"
-        /-->
+        />
 
     <SwitchPreference android:title="Week starts with Monday"
         android:summary="When enabled, Monday will be used as the first day of the week"
         android:key="mondayIsFirstDay"
         android:defaultValue="true"
-        />
+        /-->
 
 </PreferenceScreen>

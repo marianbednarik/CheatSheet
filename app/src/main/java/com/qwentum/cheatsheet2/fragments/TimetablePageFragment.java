@@ -28,11 +28,11 @@ public class TimetablePageFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_timetable_page, container, false);
 
         tabLayout = (TabLayout) inflatedView.findViewById(R.id.sliding_tabs);
-        tabLayout.addTab(tabLayout.newTab().setText("Monday"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tuesday"));
-        tabLayout.addTab(tabLayout.newTab().setText("Wednesday"));
-        tabLayout.addTab(tabLayout.newTab().setText("Thursday"));
-        tabLayout.addTab(tabLayout.newTab().setText("Friday"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.text_tab_monday));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.text_tab_tuesday));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.text_tab_wednesday));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.text_tab_thursday));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.text_tab_friday));
         final ViewPager viewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
         viewPager.setAdapter(new TimetablePagerAdapter(getChildFragmentManager()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

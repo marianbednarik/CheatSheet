@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
+            android:label="@string/text_drawer_option_settings"
             android:theme="@style/AppTheme"
             android:parentActivityName=".MainActivity">
             <meta-data

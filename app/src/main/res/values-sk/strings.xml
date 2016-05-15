@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_drawer_option_overview">Prehľad</string>
+    <string name="text_drawer_option_messages">Správy</string>
+    <string name="text_drawer_option_assignments">Zadania</string>
+    <string name="text_drawer_option_homework">Úlohy</string>
+    <string name="text_drawer_option_notes">Poznámky</string>
+    <string name="text_drawer_option_classmates">Spolužiaci</string>
+    <string name="text_drawer_classes">Triedy</string>
+    <string name="text_drawer_option_add_class">Pridať triedu</string>
+    <string name="text_drawer_other">Ostatné</string>
+    <string name="text_drawer_option_account">Účet</string>
+    <string name="text_drawer_option_settings">Nastavenia</string>
+    <string name="text_drawer_option_log_out">Odhlásiť sa</string>
+
+    <string name="title_settings_personalise">Personalizovať rozvrh</string>
+    <string name="text_settings_personalise">Zobrazia sa len vaše hodiny</string>
+    <string name="title_settings_name">Meno</string>
+    <string name="text_settings_name">Vyberte si svoje meno na zobrazenie správneho rozvrhu</string>
+
+    <string name="text_lesson_current">Práve</string>
+    <string name="text_lesson_up_next">Ďalšia</string>
+    <string name="text_group_a">Skupina A</string>
+    <string name="text_group_b">Skupina B</string>
+    <string name="text_week_number">%d. Týždeň</string>
+    <string name="text_lesson_number">%d. Hodina</string>
+    <string name="text_tab_monday">Pon</string>
+    <string name="text_tab_tuesday">Uto</string>
+    <string name="text_tab_wednesday">Str</string>
+    <string name="text_tab_thursday">Štv</string>
+    <string name="text_tab_friday">Pia</string>
+    <string name="text_undefined">Nezadané</string>
+    <string name="text_undefined_number">-</string>
+</resources>

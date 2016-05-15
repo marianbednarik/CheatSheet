@@ -1,9 +1,11 @@
 package com.qwentum.cheatsheet2.models;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
 import com.qwentum.cheatsheet2.MainActivity;
+import com.qwentum.cheatsheet2.R;
 import com.qwentum.cheatsheet2.objects.Timetable;
 import com.qwentum.cheatsheet2.objects.WeekDay;
 
@@ -40,10 +42,11 @@ public class TimetableCardModel {
                 mDisabled = false;
                     mSubjectIdColor[0] = tt.subjectColors[temp];
 
+                Resources res = MainActivity.context.getResources();
                 if (!currentDay._startsWithZero) {
-                    mSubjectNum = Integer.toString(position + 1);
+                    mSubjectNum = res.getString(R.string.text_lesson_number, position + 1);
                 } else {
-                    mSubjectNum = Integer.toString(position);
+                    mSubjectNum = res.getString(R.string.text_lesson_number, position);
                 }
                 mSubjectName[0] = tt.subjectNames[temp];
                 mSubjectID[0] = mSubjectName[0].substring(0,1);
@@ -65,10 +68,11 @@ public class TimetableCardModel {
                 }
                     mSubjectIdColor[i] = tt.subjectColors[temp];
 
+                Resources res = MainActivity.context.getResources();
                 if (!currentDay._startsWithZero) {
-                    mSubjectNum = Integer.toString(position + 1);
+                    mSubjectNum = res.getString(R.string.text_lesson_number, position + 1);
                 } else {
-                    mSubjectNum = Integer.toString(position);
+                    mSubjectNum = res.getString(R.string.text_lesson_number, position);
                 }
                 mSubjectName[i] = tt.subjectNames[temp];
                 mSubjectID[i] = mSubjectName[i].substring(0,1);

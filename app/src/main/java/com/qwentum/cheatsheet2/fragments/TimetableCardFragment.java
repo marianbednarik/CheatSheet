@@ -121,7 +121,7 @@ public class TimetableCardFragment extends Fragment {
                         mSubjectName1.setText(model.mSubjectName[1] + " - " + model.mGroup[1]);
                         mSubjectInfo1.setText(model.mSubjectInfo[1]);
                     case TYPE_ITEM_0:
-                        mSubjectNum.setText(model.mSubjectNum + ". Lesson");
+                        mSubjectNum.setText(model.mSubjectNum);
                         mSubjectID0.setText(model.mSubjectID[0]);
                         if (model.mGroup[0] != "") {
                             mSubjectName0.setText(model.mSubjectName[0] + " - " + model.mGroup[0]);

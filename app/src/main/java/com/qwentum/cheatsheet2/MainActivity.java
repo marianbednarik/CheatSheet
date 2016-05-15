@@ -12,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.fragment_container, timetablePageFragment).commit();
         } else {
-            Log.d(TAG, "Assigning fragment after getting cleared from memory");
+            //Log.d(TAG, "Assigning fragment after getting cleared from memory");
             timetablePageFragment = (TimetablePageFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         }
 
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         textTimer = new TextView(this);
-        setTitle(R.string.main_activity_name);
+        setTitle(R.string.text_drawer_option_overview);
         context = getBaseContext();
 
         //TIMER
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity
         //TODO set hardcoded string as variables
         //TODO move to android:theme
         if (id == R.id.nav_classmates){
-            setTitle("Classmates");
+            setTitle(R.string.text_drawer_option_classmates);
             toolbar.setElevation(16);
             ClassmatesFragment classmatesFragment = new ClassmatesFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, classmatesFragment).commit();
@@ -145,6 +144,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_overview){
             toolbar.setElevation(0);
+            setTitle(R.string.text_drawer_option_overview);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, timetablePageFragment).commit();
         }
 
