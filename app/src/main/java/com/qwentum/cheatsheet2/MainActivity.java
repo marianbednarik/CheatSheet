@@ -61,11 +61,16 @@ public class MainActivity extends AppCompatActivity
         setTitle(R.string.text_drawer_option_overview);
 
         //TIMER
-        if (timetable.getCurrentSubjectID(false) < 18) {
+        int currentSubjectTemp = timetable.getCurrentSubjectID(false);
+        if (currentSubjectTemp < 18) {
             try {
                 //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
                 cal = Calendar.getInstance();
-                startTimer(tf.parse(timetable.times[timetable.getCurrentSubjectID(false) + 1]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
+                if (currentSubjectTemp < 0) {
+                    startTimer(tf.parse(timetable.times[0]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
+                } else {
+                    startTimer(tf.parse(timetable.times[currentSubjectTemp + 1]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
+                }
             } catch (ParseException pe) {
 
             }

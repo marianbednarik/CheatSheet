@@ -145,7 +145,7 @@ public class Timetable {
         } catch (ParseException pe) {
 
         }
-        //Lesson haven't started
+        //Couldn't get lesson number
         return -2;
     }
 
