@@ -93,7 +93,7 @@ public class TimetableCardFragment extends Fragment {
 
     public void autoSmoothScrollTo(int position) {
         if (Helper.calendarGet(Calendar.DAY_OF_WEEK) == getArguments().getInt(ARG_PAGE, 0)) {
-            if (!currentDay._startsWithZero) position -= 1;
+            if (!currentDay._startsWithZero && position > 0) position -= 1;
             mRecyclerView.smoothScrollToPosition(position);
         }
     }
