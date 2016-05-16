@@ -1,7 +1,10 @@
 package com.qwentum.cheatsheet2;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.NavigationView;
@@ -94,7 +97,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        Resources res = getResources();
 
+        this.setTaskDescription(new ActivityManager.TaskDescription(res.getString(R.string.app_name),
+                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher),
+                ContextCompat.getColor(context, R.color.colorPrimaryDark)));
         TextView text = (TextView) navigationView.getHeaderView(0).findViewById(R.id.text_drawer_username);
         text.setText(getResources().getStringArray(R.array.listArray)[Helper.getSharedPref("selectedName")]);
     }
