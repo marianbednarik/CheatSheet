@@ -13,7 +13,9 @@
     card_view:contentPaddingBottom="8dp"
     android:layout_marginBottom="8dp"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp">
+    android:layout_marginLeft="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginRight="16dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,14 +26,16 @@
             android:id="@+id/textTime"
             android:textSize="14sp"
             android:text="@string/text_undefined_number"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:id="@+id/textCurrentSubjectNum"
             android:text="@string/text_undefined"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true" />
         <include
             layout="@layout/devider"
             android:id="@+id/devider_0"
@@ -46,6 +50,7 @@
             android:layout_marginTop="8dp"
             android:layout_alignTop="@id/devider_0"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignBottom="@+id/textCurrentSubjectInfo_0"
             android:id="@+id/lessonColor_0"
             android:src="@drawable/circle"
@@ -56,7 +61,9 @@
             android:layout_alignTop="@id/lessonColor_0"
             android:layout_alignBottom="@id/lessonColor_0"
             android:layout_alignStart="@id/lessonColor_0"
+            android:layout_alignLeft="@id/lessonColor_0"
             android:layout_alignEnd="@id/lessonColor_0"
+            android:layout_alignRight="@id/lessonColor_0"
             android:id="@+id/textCurrentSubjectID_0"
             android:textSize="21sp"
             android:textColor="@color/md_grey_50"
@@ -70,16 +77,18 @@
             android:text="@string/text_undefined"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:paddingStart="16dp"
-            android:layout_toEndOf="@id/lessonColor_0"/>
+            android:paddingLeft="16dp"
+            android:layout_toEndOf="@id/lessonColor_0"
+            android:layout_toRightOf="@id/lessonColor_0" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textCurrentSubjectInfo_0"
             android:text="@string/text_undefined"
             android:textSize="16sp"
-            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
             android:layout_toEndOf="@id/lessonColor_0"
+            android:layout_toRightOf="@id/lessonColor_0"
             android:layout_marginTop="4dp"
             android:layout_below="@id/textCurrentSubject_0"/>
 
@@ -96,6 +105,7 @@
             android:layout_marginTop="8dp"
             android:layout_alignTop="@id/devider_1"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignBottom="@+id/textCurrentSubjectInfo_1"
             android:id="@+id/lessonColor_1"
             android:src="@drawable/circle"
@@ -106,7 +116,9 @@
             android:layout_alignTop="@id/lessonColor_1"
             android:layout_alignBottom="@id/lessonColor_1"
             android:layout_alignStart="@id/lessonColor_1"
+            android:layout_alignLeft="@id/lessonColor_1"
             android:layout_alignEnd="@id/lessonColor_1"
+            android:layout_alignRight="@id/lessonColor_1"
             android:id="@+id/textCurrentSubjectID_1"
             android:textSize="21sp"
             android:textColor="@color/md_grey_50"
@@ -121,16 +133,18 @@
             android:text="@string/text_undefined"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:paddingStart="16dp"
-            android:layout_toEndOf="@id/lessonColor_1"/>
+            android:paddingLeft="16dp"
+            android:layout_toEndOf="@id/lessonColor_1"
+            android:layout_toRightOf="@id/lessonColor_1" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textCurrentSubjectInfo_1"
             android:text="@string/text_undefined"
             android:textSize="16sp"
-            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
             android:layout_toEndOf="@id/lessonColor_1"
+            android:layout_toRightOf="@id/lessonColor_1"
             android:layout_marginTop="4dp"
             android:layout_below="@id/textCurrentSubject_1"/>
 
@@ -147,6 +161,7 @@
             android:layout_marginTop="8dp"
             android:layout_alignTop="@id/devider_2"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignBottom="@+id/textCurrentSubjectInfo_2"
             android:id="@+id/lessonColor_2"
             android:src="@drawable/circle"
@@ -157,7 +172,9 @@
             android:layout_alignTop="@id/lessonColor_2"
             android:layout_alignBottom="@id/lessonColor_2"
             android:layout_alignStart="@id/lessonColor_2"
+            android:layout_alignLeft="@id/lessonColor_2"
             android:layout_alignEnd="@id/lessonColor_2"
+            android:layout_alignRight="@id/lessonColor_2"
             android:id="@+id/textCurrentSubjectID_2"
             android:textSize="21sp"
             android:textColor="@color/md_grey_50"
@@ -172,16 +189,18 @@
             android:text="@string/text_undefined"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:paddingStart="16dp"
-            android:layout_toEndOf="@id/lessonColor_2"/>
+            android:paddingLeft="16dp"
+            android:layout_toEndOf="@id/lessonColor_2"
+            android:layout_toRightOf="@id/lessonColor_2" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textCurrentSubjectInfo_2"
             android:text="@string/text_undefined"
             android:textSize="16sp"
-            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
             android:layout_toEndOf="@id/lessonColor_2"
+            android:layout_toRightOf="@id/lessonColor_2"
             android:layout_marginTop="4dp"
             android:layout_below="@id/textCurrentSubject_2"/>
     </RelativeLayout>

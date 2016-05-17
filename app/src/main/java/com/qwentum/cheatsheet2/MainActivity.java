@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.NavigationView;
@@ -99,9 +100,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         Resources res = getResources();
 
-        this.setTaskDescription(new ActivityManager.TaskDescription(res.getString(R.string.app_name),
-                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher),
-                ContextCompat.getColor(context, R.color.colorPrimaryDark)));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.setTaskDescription(new ActivityManager.TaskDescription(res.getString(R.string.app_name),
+                    BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher),
+                    ContextCompat.getColor(context, R.color.colorPrimaryDark)));
+        }
         TextView text = (TextView) navigationView.getHeaderView(0).findViewById(R.id.text_drawer_username);
         text.setText(getResources().getStringArray(R.array.listArray)[Helper.getSharedPref("selectedName")]);
     }
@@ -153,13 +156,17 @@ public class MainActivity extends AppCompatActivity
         //TODO move to android:theme
         if (id == R.id.nav_classmates){
             setTitle(R.string.text_drawer_option_classmates);
-            toolbar.setElevation(16);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                toolbar.setElevation(16);
+            }
             ClassmatesFragment classmatesFragment = new ClassmatesFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, classmatesFragment).commit();
         } else if (id == R.id.nav_settings){
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_overview){
-            toolbar.setElevation(0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                toolbar.setElevation(0);
+            }
             setTitle(R.string.text_drawer_option_overview);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, timetablePageFragment).commit();
         } else {
