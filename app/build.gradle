@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.qwentum.cheatsheet2"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "0.1"
