@@ -149,6 +149,10 @@ public class Timetable {
         return -2;
     }
 
+    public boolean isBreak(int currentLesson) {
+        return currentLesson % 2 == 0;
+    }
+
     public int getUserGroup(int typeOfSubject, Context context) {
         SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(context);
         int selectedName = Integer.parseInt(SP.getString("selectedName", "0"));

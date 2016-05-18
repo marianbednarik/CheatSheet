@@ -2,6 +2,7 @@ package com.qwentum.cheatsheet2.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ public class ClassmatesFragment extends Fragment {
 
     public class ClassmatesViewHolder extends RecyclerView.ViewHolder {
 
+        CardView mCardView;
         TextView mClassmateA, mClassmateB, mDayRange, mWeekNum, mClassmateID_A, mClassmateID_B;
 
         public ClassmatesViewHolder(View itemView) {
@@ -59,6 +61,7 @@ public class ClassmatesFragment extends Fragment {
             mWeekNum = (TextView) itemView.findViewById(R.id.currentClassmateWeekNum);
             mClassmateID_A = (TextView) itemView.findViewById(R.id.classmateID_A);
             mClassmateID_B = (TextView) itemView.findViewById(R.id.classmateID_B);
+            mCardView = (CardView) itemView.findViewById(R.id.cardView);
         }
 
         public void bind(ClassmatesModel model) {

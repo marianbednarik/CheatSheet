@@ -17,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -193,20 +194,23 @@ public class MainActivity extends AppCompatActivity
 
             public void onFinish() {
                 //TODO put the timer on another thread so the app doesn't freeze when a lesson ends. And maybe the fragment manager too, so it doesn't lag.
-                int currentSubject = timetable.getCurrentSubjectID(false);
-                //Log.d(TAG, "Current subject = " + timetable.getCurrentSubjectID(true) + '\n' + "Current tab selected = " + timetablePageFragment.tabLayout.getSelectedTabPosition());
-                if (currentSubject % 2 != 0 && Helper.calendarGet(Calendar.DAY_OF_WEEK) == timetablePageFragment.tabLayout.getSelectedTabPosition()) {
+                int currentSubject = timetable.getCurrentSubjectID(true);
+                //Log.d(TAG, "Current subject = " + timetable.getCurrentSubjectID(true) + " Current tab selected = " + timetablePageFragment.tabLayout.getSelectedTabPosition());
+                if (timetable.isBreak(currentSubject) && Helper.calendarGet(Calendar.DAY_OF_WEEK) == timetablePageFragment.tabLayout.getSelectedTabPosition()) {
                     //Log.d(TAG, "Changing lesson sate to Done.");
                     TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(timetablePageFragment.tabLayout.getSelectedTabPosition());
-                    currentPageFragment.models.get(timetable.getCurrentSubjectID(true) - 1).mLessonDone = true;
-                    currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(timetable.getCurrentSubjectID(true) - 1);
-                    currentPageFragment.autoSmoothScrollTo(timetable.getCurrentSubjectID(true) + 1);
+                    currentPageFragment.autoSmoothScrollTo(currentSubject);
+                    if (timetable.getTimetable(Helper.calendarGet(Calendar.DAY_OF_WEEK))._startsWithZero)
+                        currentSubject -= 1;
+                    Log.d(TAG, currentSubject + "");
+                    currentPageFragment.models.get(currentSubject).mLessonDone = true;
+                    currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(currentSubject);
                 }
                 if (currentSubject < 18) {
                     try {
                         //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
                         cal = Calendar.getInstance();
-                        startTimer(tf.parse(timetable.times[currentSubject + 1]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
+                        startTimer(tf.parse(timetable.times[timetable.getCurrentSubjectID(false) + 1]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
                     } catch (ParseException pe) {
 
                     }
