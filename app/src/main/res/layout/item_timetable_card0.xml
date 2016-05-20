@@ -10,11 +10,12 @@
         android:id="@+id/cardView"
         card_view:cardCornerRadius="2dp"
         card_view:cardElevation="2dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
