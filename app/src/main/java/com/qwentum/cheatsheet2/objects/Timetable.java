@@ -103,15 +103,15 @@ public class Timetable {
 
     public WeekDay getTimetable(int day) {
         switch (day) {
-            case Calendar.MONDAY:
+            case 0:
                 return monday;
-            case Calendar.TUESDAY:
+            case 1:
                 return tuesday;
-            case Calendar.WEDNESDAY:
+            case 2:
                 return wednesday;
-            case Calendar.THURSDAY:
+            case 3:
                 return thursday;
-            case Calendar.FRIDAY:
+            case 4:
                 return friday;
             default:
                 return null;
@@ -150,7 +150,7 @@ public class Timetable {
     }
 
     public boolean isBreak(int currentLesson) {
-        return currentLesson % 2 == 0;
+        return currentLesson % 2 != 0;
     }
 
     public int getUserGroup(int typeOfSubject, Context context) {

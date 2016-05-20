@@ -17,7 +17,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -199,10 +198,9 @@ public class MainActivity extends AppCompatActivity
                 if (timetable.isBreak(currentSubject) && Helper.calendarGet(Calendar.DAY_OF_WEEK) == timetablePageFragment.tabLayout.getSelectedTabPosition()) {
                     //Log.d(TAG, "Changing lesson sate to Done.");
                     TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(timetablePageFragment.tabLayout.getSelectedTabPosition());
-                    currentPageFragment.autoSmoothScrollTo(currentSubject);
-                    if (timetable.getTimetable(Helper.calendarGet(Calendar.DAY_OF_WEEK))._startsWithZero)
+                    currentPageFragment.autoSmoothScrollTo(currentSubject + 1);
+                    if (!timetable.getTimetable(timetablePageFragment.tabLayout.getSelectedTabPosition())._startsWithZero)
                         currentSubject -= 1;
-                    Log.d(TAG, currentSubject + "");
                     currentPageFragment.models.get(currentSubject).mLessonDone = true;
                     currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(currentSubject);
                 }

@@ -61,7 +61,7 @@ public class TimetableCardFragment extends Fragment {
         //if (savedInstanceState == null) {
         timetable = new Timetable();
         SP = PreferenceManager.getDefaultSharedPreferences(MainActivity.context);
-        currentDay = timetable.getTimetable(getArguments().getInt(ARG_PAGE, 0) + 2);
+        currentDay = timetable.getTimetable(getArguments().getInt(ARG_PAGE, 0));
 
         models = new ArrayList<>();
         //Log.d(TAG, "Generating Cards with Day ID #" + (getArguments().getInt(ARG_PAGE, 0) + 2) + "...");
