@@ -16,7 +16,7 @@ import java.util.Locale;
  * Created by Marian on 2016-02-24.
  */
 public class Timetable {
-    private Calendar cal;
+    private static Calendar cal;
 
     public String[] times = {"07:05:00", "07:50:00", "07:55:00", "08:40:00", "08:50:00", "09:35:00",
             "09:45:00", "10:30:00", "10:40:00", "11:25:00", "11:30:00", "12:15:00",
@@ -221,7 +221,7 @@ public class Timetable {
             return getCurrentSubjectID(true) > dayLength;
     }
 
-    public boolean isWeekend() {
+    public static boolean isWeekend() {
         cal = Calendar.getInstance();
         return (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY);
     }

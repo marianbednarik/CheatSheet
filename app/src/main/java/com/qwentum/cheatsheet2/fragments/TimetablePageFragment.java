@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.qwentum.cheatsheet2.Helper;
 import com.qwentum.cheatsheet2.R;
+import com.qwentum.cheatsheet2.objects.Timetable;
 
 import java.util.Calendar;
 
@@ -36,7 +37,11 @@ public class TimetablePageFragment extends Fragment {
         final ViewPager viewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
         viewPager.setAdapter(new TimetablePagerAdapter(getChildFragmentManager()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        viewPager.setCurrentItem(Helper.calendarGet(Calendar.DAY_OF_WEEK));
+        if (!Timetable.isWeekend()) {
+            viewPager.setCurrentItem(Helper.calendarGet(Calendar.DAY_OF_WEEK));
+        } else {
+            viewPager.setCurrentItem(0);
+        }
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
