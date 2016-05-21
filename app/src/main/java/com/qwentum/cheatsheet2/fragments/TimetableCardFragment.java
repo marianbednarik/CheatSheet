@@ -86,7 +86,7 @@ public class TimetableCardFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new MyCustomLayoutManager(getActivity()));
-        if (!timetable.areLessonsDone(currentDay._classType.length) && !timetable.isWeekend())
+        if (!timetable.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK)) && !Timetable.isWeekend())
             autoSmoothScrollTo(timetable.getCurrentSubjectID(true));
         return mRecyclerView;
     }

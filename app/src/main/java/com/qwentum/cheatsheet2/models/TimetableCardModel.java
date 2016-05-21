@@ -4,10 +4,13 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
+import com.qwentum.cheatsheet2.Helper;
 import com.qwentum.cheatsheet2.MainActivity;
 import com.qwentum.cheatsheet2.R;
 import com.qwentum.cheatsheet2.objects.Timetable;
 import com.qwentum.cheatsheet2.objects.WeekDay;
+
+import java.util.Calendar;
 
 /**
  * Created by Marian on 2016-03-15.
@@ -31,7 +34,7 @@ public class TimetableCardModel {
         mGroup = new String[classType + 1];
         mSubjectName = new String[classType + 1];
         mSubjectInfo = new String[classType + 1];
-        if (((!currentDay._startsWithZero && position*2 < tt.getCurrentSubjectID(false) - 2) || (currentDay._startsWithZero && position*2 < tt.getCurrentSubjectID(false))) && (!tt.areLessonsDone(currentDay._classType.length) && !tt.isWeekend())) {
+        if (((!currentDay._startsWithZero && position * 2 < tt.getCurrentSubjectID(false) - 2) || (currentDay._startsWithZero && position * 2 < tt.getCurrentSubjectID(false))) && (!tt.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK)) && !tt.isWeekend())) {
             mLessonDone = true;
         }
         //Log.e("CardModel", "Creating Model #" + position);

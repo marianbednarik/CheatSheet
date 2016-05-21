@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
 
         //TIMER
         int currentSubjectTemp = timetable.getCurrentSubjectID(false);
-        if (currentSubjectTemp < 18 && !Timetable.isWeekend()) {
+        if (!timetable.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK)) && !Timetable.isWeekend()) {
             try {
                 //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
                 cal = Calendar.getInstance();
@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity
             } catch (ParseException pe) {
 
             }
+        } else {
+            textTimer.setText("");
         }
 
         //FAB - app_bar_main.xml

@@ -217,8 +217,9 @@ public class Timetable {
         }
     }
 
-    public boolean areLessonsDone(int dayLength) {
-            return getCurrentSubjectID(true) > dayLength;
+    public boolean areLessonsDone(int day) {
+        WeekDay tmp = getTimetable(day);
+        return getCurrentSubjectID(true) > tmp._classType.length;
     }
 
     public static boolean isWeekend() {
