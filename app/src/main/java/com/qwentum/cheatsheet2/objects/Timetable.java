@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.qwentum.cheatsheet2.MainActivity;
 import com.qwentum.cheatsheet2.R;
 
 import java.text.ParseException;
@@ -139,14 +140,17 @@ public class Timetable {
                     }
                 }
             } else {
-                //Lessons over
-                return times.length;
+                if (!real) {
+                    return times.length - 1;
+                } else {
+                    return times.length / 2;
+                }
             }
         } catch (ParseException pe) {
 
         }
         //Couldn't get lesson number
-        return -2;
+        return 0;
     }
 
     public boolean isBreak(int currentLesson) {
@@ -213,13 +217,22 @@ public class Timetable {
                     return 0;
             }
         } else {
-            return 0;
+            return 3;
         }
     }
 
     public boolean areLessonsDone(int day) {
         WeekDay tmp = getTimetable(day);
-        return getCurrentSubjectID(true) > tmp._classType.length;
+        int userGroup = getUserGroup(1, MainActivity.context);
+        if (userGroup != 3) {
+            if (!tmp._startsWithZero) {
+                return tmp._classInfo[userGroup][getCurrentSubjectID(true) - 1] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2;
+            } else {
+                return (tmp._classInfo[userGroup][getCurrentSubjectID(true)] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2);
+            }
+        } else {
+            return getCurrentSubjectID(false) > tmp._classType.length * 2;
+        }
     }
 
     public static boolean isWeekend() {

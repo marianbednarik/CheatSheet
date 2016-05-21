@@ -78,8 +78,6 @@ public class MainActivity extends AppCompatActivity
             } catch (ParseException pe) {
 
             }
-        } else {
-            textTimer.setText("");
         }
 
         //FAB - app_bar_main.xml
@@ -156,16 +154,16 @@ public class MainActivity extends AppCompatActivity
 
         //TODO set hardcoded string as variables
         //TODO move to android:theme
-        if (id == R.id.nav_classmates){
+        if (id == R.id.nav_classmates) {
             setTitle(R.string.text_drawer_option_classmates);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 toolbar.setElevation(16);
             }
             ClassmatesFragment classmatesFragment = new ClassmatesFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, classmatesFragment).commit();
-        } else if (id == R.id.nav_settings){
+        } else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
-        } else if (id == R.id.nav_overview){
+        } else if (id == R.id.nav_overview) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 toolbar.setElevation(0);
             }
@@ -180,33 +178,35 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void startTimer (final long timeInMillis){
+    public void startTimer(final long timeInMillis) {
         new CountDownTimer(timeInMillis, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 String fillerText;
-                if ((millisUntilFinished / 1000) % 60 < 10){
+                if ((millisUntilFinished / 1000) % 60 < 10) {
                     fillerText = ":0";
                 } else {
                     fillerText = ":";
                 }
-                textTimer.setText(((millisUntilFinished / (1000*60)) % 60) + fillerText + (millisUntilFinished / 1000) % 60);
+                textTimer.setText(((millisUntilFinished / (1000 * 60)) % 60) + fillerText + (millisUntilFinished / 1000) % 60);
             }
 
             public void onFinish() {
                 //TODO put the timer on another thread so the app doesn't freeze when a lesson ends. And maybe the fragment manager too, so it doesn't lag.
                 int currentSubject = timetable.getCurrentSubjectID(true);
                 //Log.d(TAG, "Current subject = " + timetable.getCurrentSubjectID(true) + " Current tab selected = " + timetablePageFragment.tabLayout.getSelectedTabPosition());
-                if (timetable.isBreak(currentSubject) && Helper.calendarGet(Calendar.DAY_OF_WEEK) == timetablePageFragment.tabLayout.getSelectedTabPosition()) {
-                    //Log.d(TAG, "Changing lesson sate to Done.");
-                    TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(timetablePageFragment.tabLayout.getSelectedTabPosition());
-                    currentPageFragment.autoSmoothScrollTo(currentSubject + 1);
-                    if (!timetable.getTimetable(timetablePageFragment.tabLayout.getSelectedTabPosition())._startsWithZero)
-                        currentSubject -= 1;
-                    currentPageFragment.models.get(currentSubject).mLessonDone = true;
-                    currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(currentSubject);
-                }
-                if (currentSubject < 18) {
+                if (!timetable.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK))) {
+                    if (timetable.isBreak(currentSubject)) {
+                        TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(Helper.calendarGet(Calendar.DAY_OF_WEEK));
+                        if (currentPageFragment != null) {
+                            if (Helper.calendarGet(Calendar.DAY_OF_WEEK) == timetablePageFragment.tabLayout.getSelectedTabPosition())
+                                currentPageFragment.autoSmoothScrollTo(currentSubject + 1);
+                            if (!timetable.getTimetable(timetablePageFragment.tabLayout.getSelectedTabPosition())._startsWithZero)
+                                currentSubject -= 1;
+                            currentPageFragment.models.get(currentSubject).mLessonDone = true;
+                            currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(currentSubject);
+                        }
+                    }
                     try {
                         //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
                         cal = Calendar.getInstance();
@@ -214,6 +214,22 @@ public class MainActivity extends AppCompatActivity
                     } catch (ParseException pe) {
 
                     }
+                } else {
+                    TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(Helper.calendarGet(Calendar.DAY_OF_WEEK));
+                    int selectedTab = timetablePageFragment.tabLayout.getSelectedTabPosition();
+                    if (currentPageFragment != null) {
+                        currentSubject = timetable.getCurrentSubjectID(true);
+                        if (timetable.getTimetable(selectedTab)._startsWithZero)
+                            currentSubject += 1;
+                        currentPageFragment.models.get(currentSubject - 1).mLessonDone = true;
+                        currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(currentSubject - 1);
+                    }
+                    if (selectedTab < 4) {
+                        timetablePageFragment.viewPager.setCurrentItem(selectedTab + 1);
+                    } else {
+                        timetablePageFragment.viewPager.setCurrentItem(0);
+                    }
+                    textTimer.setText("");
                 }
             }
         }.start();

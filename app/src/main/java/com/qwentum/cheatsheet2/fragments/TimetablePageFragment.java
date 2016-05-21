@@ -20,6 +20,7 @@ import java.util.Calendar;
 public class TimetablePageFragment extends Fragment {
 
     public TabLayout tabLayout;
+    public ViewPager viewPager;
     private String TAG = "TTPageFragment";
     public SparseArray<TimetableCardFragment> generatedFragments = new SparseArray<>();
 
@@ -34,7 +35,7 @@ public class TimetablePageFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.text_tab_wednesday));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.text_tab_thursday));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.text_tab_friday));
-        final ViewPager viewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
+        viewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
         viewPager.setAdapter(new TimetablePagerAdapter(getChildFragmentManager()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         if (!Timetable.isWeekend()) {
