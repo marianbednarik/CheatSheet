@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
 
         //TIMER
         int currentSubjectTemp = timetable.getCurrentSubjectID(false);
-        if (currentSubjectTemp < 18) {
+        if (currentSubjectTemp < 18 && !Timetable.isWeekend()) {
             try {
                 //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
                 cal = Calendar.getInstance();
