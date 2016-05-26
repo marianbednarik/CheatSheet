@@ -228,7 +228,11 @@ public class Timetable {
             if (!tmp._startsWithZero) {
                 return tmp._classInfo[userGroup][getCurrentSubjectID(true) - 1] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2;
             } else {
-                return (tmp._classInfo[userGroup][getCurrentSubjectID(true)] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2);
+                if (getCurrentSubjectID(false) < tmp._classInfo[userGroup].length * 2 - 2) {
+                    return (tmp._classInfo[userGroup][getCurrentSubjectID(true)] == -1);
+                } else {
+                    return true;
+                }
             }
         } else {
             return getCurrentSubjectID(false) > tmp._classType.length * 2;
