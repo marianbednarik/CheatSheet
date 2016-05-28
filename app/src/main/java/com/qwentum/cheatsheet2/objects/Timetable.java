@@ -3,6 +3,7 @@ package com.qwentum.cheatsheet2.objects;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.qwentum.cheatsheet2.MainActivity;
 import com.qwentum.cheatsheet2.R;
@@ -79,7 +80,7 @@ public class Timetable {
     0.  Anglický jazyk	            1. a 3.IT - 1C107	Kararína Košnarová      Deep Orange 600     Normalna hodina
     1.  Elektronika	                3.DA - 1C010	    Ondrej Rimovský         Green 800           Dve skupiny
     2.  Elektrotechnické meranie	3.AZ - 1D101        Jozef Elek              Light Green 500     Try skupiny
-    3.  Informatika	                3.AT - 1B001	    Juraj Szőcs             Grey 600
+    3.  Informatika	                3.AT - 1B001	    Juraj Szőcs             Grey 600            Jazyky
     4.  Matematika	                DRIM - 6B05	        Juliana Gyuríková       Pink 600
     5.  Nemecký jazyk 	            1.AE - 1A011	    Viera Kocholová         Light blue 500
     6.  Občianska náuka 	        LCUP - 1F204	    Monika Barthová         Deep orange 800
@@ -143,7 +144,7 @@ public class Timetable {
                 if (!real) {
                     return times.length - 1;
                 } else {
-                    return times.length / 2;
+                    return times.length / 2 - 1;
                 }
             }
         } catch (ParseException pe) {
@@ -222,20 +223,33 @@ public class Timetable {
     }
 
     public boolean areLessonsDone(int day) {
-        WeekDay tmp = getTimetable(day);
+        WeekDay tmp;
+        if (!isWeekend()) {
+            tmp = getTimetable(day);
+        } else {
+            tmp = getTimetable(0);
+        }
         int userGroup = getUserGroup(1, MainActivity.context);
+        //Log.d("tt", "Usergroup = " + userGroup + "  " + tmp._classInfo[userGroup][0]);
+        //TODO May crash on 0. lesson due to it being -1
         if (userGroup != 3) {
-            if (!tmp._startsWithZero) {
-                return tmp._classInfo[userGroup][getCurrentSubjectID(true) - 1] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2;
+            Log.d("tt", "getID = " + getCurrentSubjectID(false) + " length = " + (tmp._classInfo[userGroup].length * 2));
+            if (tmp._startsWithZero && tmp._classInfo[userGroup][0] != -1) {
+                //Log.d("tt", "areLessonsDone0 returned " + (tmp._classInfo[userGroup][getCurrentSubjectID(true) - 1] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2));
+                return (tmp._classInfo[userGroup][getCurrentSubjectID(true)] == -1) || (getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2);
+            } else if (!tmp._startsWithZero) {
+                //Log.d("tt", "areLessonsDone returned " + (tmp._classInfo[userGroup][getCurrentSubjectID(true) - 1] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2));
+                return (tmp._classInfo[userGroup][getCurrentSubjectID(true) - 1] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2);
             } else {
-                if (getCurrentSubjectID(false) < tmp._classInfo[userGroup].length * 2 - 2) {
-                    return (tmp._classInfo[userGroup][getCurrentSubjectID(true)] == -1);
-                } else {
-                    return true;
-                }
+                return (tmp._classInfo[userGroup][getCurrentSubjectID(true)] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2);
             }
         } else {
-            return getCurrentSubjectID(false) > tmp._classType.length * 2;
+            //Log.d("tt", "getID = " + getCurrentSubjectID(false) + " length = " + (tmp._classType.length * 2));
+            if (tmp._startsWithZero) {
+                return getCurrentSubjectID(false) > tmp._classType.length * 2 - 2;
+            } else {
+                return getCurrentSubjectID(false) > tmp._classType.length * 2;
+            }
         }
     }
 

@@ -78,6 +78,13 @@ public class TimetableCardFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        if (!timetable.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK)) && !Timetable.isWeekend())
+            autoSmoothScrollTo(timetable.getCurrentSubjectID(true));
+        super.onStart();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mRecyclerView = (RecyclerView) inflater.inflate(
@@ -86,8 +93,6 @@ public class TimetableCardFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new MyCustomLayoutManager(getActivity()));
-        if (!timetable.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK)) && !Timetable.isWeekend())
-            autoSmoothScrollTo(timetable.getCurrentSubjectID(true));
         return mRecyclerView;
     }
 
@@ -183,7 +188,6 @@ public class TimetableCardFragment extends Fragment {
                         break;
                 }
                 mTimes.setText(R.string.text_lesson_end);
-                //mCardView.setAlpha(0.80f);
             }
         }
     }

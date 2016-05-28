@@ -34,7 +34,9 @@ public class TimetableCardModel {
         mGroup = new String[classType + 1];
         mSubjectName = new String[classType + 1];
         mSubjectInfo = new String[classType + 1];
-        if (((!currentDay._startsWithZero && position * 2 < tt.getCurrentSubjectID(false) - 2) || (currentDay._startsWithZero && position * 2 < tt.getCurrentSubjectID(false))) && (!tt.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK)) && !tt.isWeekend())) {
+        if (((!currentDay._startsWithZero && position * 2 < tt.getCurrentSubjectID(false) - 2) ||
+                (currentDay._startsWithZero && position * 2 < tt.getCurrentSubjectID(false))) &&
+                (!tt.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK)) && !tt.isWeekend())) {
             mLessonDone = true;
         }
         //Log.e("CardModel", "Creating Model #" + position);
