@@ -3,7 +3,6 @@ package com.qwentum.cheatsheet2.objects;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.qwentum.cheatsheet2.MainActivity;
 import com.qwentum.cheatsheet2.R;
@@ -129,23 +128,25 @@ public class Timetable {
 
         String dateEnding = "/" + cal.get(Calendar.DAY_OF_MONTH) + '/' + (cal.get(Calendar.MONTH) + 1) + '/' + cal.get(Calendar.YEAR);
         try {
-            if (currentTime.compareTo(timeFormat.parse(times[17] + dateEnding)) < 0) {
-                for (int i = times.length - 1; i >= 0; i--) {
-                    if (currentTime.compareTo(timeFormat.parse(times[i] + dateEnding)) >= 0) {
-                        currentLesson = i;
-                        if (!real) {
-                            return currentLesson;
-                        } else {
-                            return currentLesson / 2;
+            if (currentTime.compareTo(timeFormat.parse(times[0] + dateEnding)) > 0) {
+                if (currentTime.compareTo(timeFormat.parse(times[17] + dateEnding)) < 0) {
+                    for (int i = times.length - 1; i >= 0; i--) {
+                        if (currentTime.compareTo(timeFormat.parse(times[i] + dateEnding)) >= 0) {
+                            currentLesson = i;
+                            if (!real) {
+                                return currentLesson;
+                            } else {
+                                return currentLesson / 2;
+                            }
                         }
                     }
+                } else {
+                    //Ended
+                    return -2;
                 }
             } else {
-                if (!real) {
-                    return times.length - 1;
-                } else {
-                    return times.length / 2 - 1;
-                }
+                //Hasn't started yet
+                return -1;
             }
         } catch (ParseException pe) {
 
@@ -223,33 +224,44 @@ public class Timetable {
     }
 
     public boolean areLessonsDone(int day) {
-        WeekDay tmp;
         if (!isWeekend()) {
-            tmp = getTimetable(day);
-        } else {
-            tmp = getTimetable(0);
-        }
-        int userGroup = getUserGroup(1, MainActivity.context);
-        //Log.d("tt", "Usergroup = " + userGroup + "  " + tmp._classInfo[userGroup][0]);
-        //TODO May crash on 0. lesson due to it being -1
-        if (userGroup != 3) {
-            Log.d("tt", "getID = " + getCurrentSubjectID(false) + " length = " + (tmp._classInfo[userGroup].length * 2));
-            if (tmp._startsWithZero && tmp._classInfo[userGroup][0] != -1) {
-                //Log.d("tt", "areLessonsDone0 returned " + (tmp._classInfo[userGroup][getCurrentSubjectID(true) - 1] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2));
-                return (tmp._classInfo[userGroup][getCurrentSubjectID(true)] == -1) || (getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2);
-            } else if (!tmp._startsWithZero) {
-                //Log.d("tt", "areLessonsDone returned " + (tmp._classInfo[userGroup][getCurrentSubjectID(true) - 1] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2));
-                return (tmp._classInfo[userGroup][getCurrentSubjectID(true) - 1] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2 - 2);
+            int currentSubjectIDTrue = getCurrentSubjectID(true);
+            int currentSubjectID = getCurrentSubjectID(false);
+            if (currentSubjectID == -1) {
+                return false;
+            } else if (currentSubjectID == -2) {
+                return true;
             } else {
-                return (tmp._classInfo[userGroup][getCurrentSubjectID(true)] == -1 || getCurrentSubjectID(false) > tmp._classInfo[userGroup].length * 2);
+                WeekDay tmp;
+                tmp = getTimetable(day);
+                //Log.d("tt", "True = " + currentSubjectIDTrue + " False = " + currentSubjectID);
+                int userGroup = getUserGroup(1, MainActivity.context);
+                //Log.d("tt", "Usergroup = " + userGroup + "  " + tmp._classInfo[userGroup][0]);
+                //TODO May crash on 0. lesson due to it being -1
+                if (userGroup != 3) {
+                    //Log.d("tt", "getID = " + currentSubjectID + " length = " + (tmp._classInfo[userGroup].length * 2));
+                    if (tmp._startsWithZero && tmp._classInfo[userGroup][0] != -1) {
+                        //Log.d("tt", "areLessonsDone0 returned " + ((tmp._classInfo[userGroup][currentSubjectIDTrue] == -1 && currentSubjectIDTrue != 0) || (currentSubjectID > tmp._classInfo[userGroup].length * 2 - 2)));
+                        return ((tmp._classInfo[userGroup][currentSubjectIDTrue] == -1 && currentSubjectIDTrue != 0) || (currentSubjectID > tmp._classInfo[userGroup].length * 2 - 2));
+                    } else if (!tmp._startsWithZero) {
+                        //Log.d("tt", "areLessonsDone1 returned " + ((tmp._classInfo[userGroup][currentSubjectIDTrue - 1] == -1 && currentSubjectIDTrue != 0) || currentSubjectID > tmp._classInfo[userGroup].length * 2 - 2));
+                        if (currentSubjectID == 0) return false;
+                        return ((tmp._classInfo[userGroup][currentSubjectIDTrue - 1] == -1 && currentSubjectIDTrue != 0) || currentSubjectID > tmp._classInfo[userGroup].length * 2 - 2);
+                    } else {
+                        //Log.d("tt", "areLessonsDone2 returned " + ((tmp._classInfo[userGroup][currentSubjectIDTrue] == -1 && currentSubjectIDTrue != 0) || currentSubjectID > tmp._classInfo[userGroup].length * 2));
+                        return ((tmp._classInfo[userGroup][currentSubjectIDTrue] == -1 && currentSubjectIDTrue != 0) || currentSubjectID > tmp._classInfo[userGroup].length * 2);
+                    }
+                } else {
+                    //Log.d("tt", "getID = " + getCurrentSubjectID(false) + " length = " + (tmp._classType.length * 2));
+                    if (tmp._startsWithZero) {
+                        return currentSubjectID > tmp._classType.length * 2 - 2;
+                    } else {
+                        return currentSubjectID > tmp._classType.length * 2;
+                    }
+                }
             }
         } else {
-            //Log.d("tt", "getID = " + getCurrentSubjectID(false) + " length = " + (tmp._classType.length * 2));
-            if (tmp._startsWithZero) {
-                return getCurrentSubjectID(false) > tmp._classType.length * 2 - 2;
-            } else {
-                return getCurrentSubjectID(false) > tmp._classType.length * 2;
-            }
+            return true;
         }
     }
 

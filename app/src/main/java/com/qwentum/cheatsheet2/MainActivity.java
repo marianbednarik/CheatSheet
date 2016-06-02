@@ -26,6 +26,7 @@ import com.qwentum.cheatsheet2.fragments.ClassmatesFragment;
 import com.qwentum.cheatsheet2.fragments.TimetableCardFragment;
 import com.qwentum.cheatsheet2.fragments.TimetablePageFragment;
 import com.qwentum.cheatsheet2.objects.Timetable;
+import com.qwentum.cheatsheet2.objects.WeekDay;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -66,12 +67,12 @@ public class MainActivity extends AppCompatActivity
         setTitle(R.string.text_drawer_option_overview);
 
         //TIMER
-        int currentSubjectTemp = timetable.getCurrentSubjectID(false);
-        if (!timetable.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK)) && !Timetable.isWeekend()) {
+        if (!timetable.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK))) {
+            int currentSubjectTemp = timetable.getCurrentSubjectID(false);
             try {
-                //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
+                Log.e("Main", "Setting the timer");
                 cal = Calendar.getInstance();
-                if (currentSubjectTemp < 0) {
+                if (currentSubjectTemp == -1) {
                     startTimer(tf.parse(timetable.times[0]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
                 } else {
                     startTimer(tf.parse(timetable.times[currentSubjectTemp + 1]).getTime() - tf.parse(tf.format(cal.getTime())).getTime());
@@ -152,9 +153,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        //TODO set hardcoded string as variables
-        //TODO move to android:theme
         if (id == R.id.nav_classmates) {
             setTitle(R.string.text_drawer_option_classmates);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -196,8 +194,11 @@ public class MainActivity extends AppCompatActivity
                 //TODO put the timer on another thread so the app doesn't freeze when a lesson ends. And maybe the fragment manager too, so it doesn't lag.
                 int currentSubject = timetable.getCurrentSubjectID(true);
                 //Log.d(TAG, "Current subject = " + timetable.getCurrentSubjectID(true) + " Current tab selected = " + timetablePageFragment.tabLayout.getSelectedTabPosition());
-                if (!timetable.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK))) {
-                    if (timetable.isBreak(currentSubject)) {
+                WeekDay currentWeekDay = timetable.getTimetable(timetablePageFragment.tabLayout.getSelectedTabPosition());
+                if (currentSubject == -2)
+                    currentSubject = currentWeekDay._classInfo[timetable.getUserGroup(1, context)].length - 1;
+
+                if (!timetable.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK)) && timetable.isBreak(currentSubject)) {
                         TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(Helper.calendarGet(Calendar.DAY_OF_WEEK));
                         if (currentPageFragment != null) {
                             if (Helper.calendarGet(Calendar.DAY_OF_WEEK) == timetablePageFragment.tabLayout.getSelectedTabPosition())
@@ -207,7 +208,6 @@ public class MainActivity extends AppCompatActivity
                             currentPageFragment.models.get(currentSubject).mLessonDone = true;
                             currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(currentSubject);
                         }
-                    }
                     try {
                         //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
                         cal = Calendar.getInstance();
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity
                     } catch (ParseException pe) {
 
                     }
-                } else {
+                } else { //Lessons are done
                     TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(Helper.calendarGet(Calendar.DAY_OF_WEEK));
                     int selectedTab = timetablePageFragment.tabLayout.getSelectedTabPosition();
                     if (currentPageFragment != null) {
