@@ -22,11 +22,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.qwentum.cheatsheet2.fragments.ClassmatesFragment;
 import com.qwentum.cheatsheet2.fragments.TimetableCardFragment;
 import com.qwentum.cheatsheet2.fragments.TimetablePageFragment;
 import com.qwentum.cheatsheet2.objects.Timetable;
 import com.qwentum.cheatsheet2.objects.WeekDay;
+
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,10 +53,27 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        context = getBaseContext();
+        context = getApplicationContext();
         super.onCreate(savedInstanceState);
-        //Normal Content view
         setContentView(R.layout.activity_main);
+
+        JsonObjectRequest jsArrRequest = new JsonObjectRequest
+                (Request.Method.GET, "http://176.32.230.47/cheatsheet.com/php/apphandle.php", null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, "Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "Error parsing JSON");
+                    }
+                });
+
+        RequestSingleton.getInstance(this).addToRequestQueue(jsArrRequest);
+
         if (savedInstanceState == null) {
             timetablePageFragment = new TimetablePageFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -177,6 +200,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
     public void startTimer(final long timeInMillis) {
         new CountDownTimer(timeInMillis, 1000) {
 
@@ -199,15 +223,15 @@ public class MainActivity extends AppCompatActivity
                     currentSubject = currentWeekDay._classInfo[timetable.getUserGroup(1, context)].length - 1;
 
                 if (!timetable.areLessonsDone(Helper.calendarGet(Calendar.DAY_OF_WEEK)) && timetable.isBreak(currentSubject)) {
-                        TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(Helper.calendarGet(Calendar.DAY_OF_WEEK));
-                        if (currentPageFragment != null) {
-                            if (Helper.calendarGet(Calendar.DAY_OF_WEEK) == timetablePageFragment.tabLayout.getSelectedTabPosition())
-                                currentPageFragment.autoSmoothScrollTo(currentSubject + 1);
-                            if (!timetable.getTimetable(timetablePageFragment.tabLayout.getSelectedTabPosition())._startsWithZero)
-                                currentSubject -= 1;
-                            currentPageFragment.models.get(currentSubject).mLessonDone = true;
-                            currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(currentSubject);
-                        }
+                    TimetableCardFragment currentPageFragment = timetablePageFragment.generatedFragments.get(Helper.calendarGet(Calendar.DAY_OF_WEEK));
+                    if (currentPageFragment != null) {
+                        if (Helper.calendarGet(Calendar.DAY_OF_WEEK) == timetablePageFragment.tabLayout.getSelectedTabPosition())
+                            currentPageFragment.autoSmoothScrollTo(currentSubject + 1);
+                        if (!timetable.getTimetable(timetablePageFragment.tabLayout.getSelectedTabPosition())._startsWithZero)
+                            currentSubject -= 1;
+                        currentPageFragment.models.get(currentSubject).mLessonDone = true;
+                        currentPageFragment.mRecyclerView.getAdapter().notifyItemChanged(currentSubject);
+                    }
                     try {
                         //Log.e("Main", "Current subject ID is " + timetable.getCurrentSubjectID(false));
                         cal = Calendar.getInstance();
